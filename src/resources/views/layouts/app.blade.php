@@ -14,7 +14,7 @@
   <div class="header__inner">
     <div class="header__left">
       <a href="/">
-        <img class="header__logo" src="{{ asset('images/hearder-logo.png') }}">
+        <img class="header__logo" src="{{ asset('images/header-logo.png') }}">
       </a>
     </div>
 
@@ -27,9 +27,20 @@
     <div class="header__right">
       <nav class="header__nav">
         <ul>
-          <li><a href="">ログイン</a></li>
-          <li><a href="">マイページ</a></li>
-          <li><a href="">出品</a></li>
+          @guest
+            <li><a class="header__link" href="/login">ログイン</a></li>
+          @endguest
+
+          @auth
+            <li>
+              <form action="/logout" method="post">
+                @csrf
+                <button class="header__button" type="submit">ログアウト</button>
+              </form>
+            </li>
+          @endauth
+            <li><a class="header__link" href="/mypage">マイページ</a></li>
+            <li><a class="header__button" href="">出品</a></li>
         </ul>
       </nav>
     </div>

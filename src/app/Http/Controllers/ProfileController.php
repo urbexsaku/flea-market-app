@@ -11,23 +11,28 @@ class ProfileController extends Controller
     {
         $user = auth()->user();
 
-        if (!$user->profile_completed){
-            return view('profile.create');
+        if (!$user->postal_code || !$user->address){
+            return view('profile', compact('user'));
         }
 
-        return view('profile.edit');
     }
 
     public function update(ProfileRequest $request)
     {
         $user = auth()->user();
 
-        $user->update([
-            'name' => $requst->name,
+        $data = [
+            'name' => $request->name,
             'postal_code' => $request->postal_code,
             'address' => $request->address,
             'building' => $request->building,
-        ]);
+        ];
+
+        if ($request->hasFile('profile_image')) {
+            $data['profile_image'] = $request->file('profile_image')->store('profile_image', 'public');
+        }
+
+        $user->update($data);
 
         return redirect('/mypage');
     }

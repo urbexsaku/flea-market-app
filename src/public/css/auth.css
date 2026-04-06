@@ -1,10 +1,11 @@
 .header {
+  margin: 0 auto;
   max-width: 1230px;
+  background-color: black;
 }
 
 .header__inner {
-  background-color: black;
-  padding: 15px;
+  padding: 10px 30px;
 }
 
 .header__logo {
@@ -14,8 +15,8 @@
 
 .auth-form__content {
   margin: 0 auto;
-  padding: 20px;
-  box-sizing: border-box;
+  max-width: 1230px;
+  padding: 30px 15px;
 }
 
 .auth-form__heading {
@@ -24,7 +25,7 @@
 }
 
 .form {
-  width: 60%;
+  width: 50%;
   margin: 0 auto;
   text-align: center;
 }

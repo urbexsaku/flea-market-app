@@ -10,15 +10,22 @@
   <form class="form">
   </form>
 
-  <form class="form" action="{{ route('update') }}" method="post" novalidate>
+  <form class="form" action="/mypage/profile" method="post" enctype="multipart/form-data" novalidate>
     @csrf
+    <div class="form__image">
+      <div class="form__image-preview"></div>
+      <label class="form__image-button">
+        画像を選択する
+        <input type="file" name="profile_image" hidden>
+      </label>
+    </div>
     <div class="form__group">
       <div class="form__group-title">
         <span class="form__label--item">ユーザー名</span>
       </div>
       <div class="form__group-content">
         <div class="form__input--text">
-          <input type="text" name="name" value="{{ old('name', auth()->user()->name }}">
+          <input type="text" name="name" value="{{ old('name', $user->name) }}">
         </div>
         <div class="form__error">
           @error('name')
@@ -34,7 +41,7 @@
       </div>
       <div class="form__group-content">
         <div class="form__input--text">
-          <input type="text" name="postal_code" value="{{ old('postal_code') }}">
+          <input type="text" name="postal_code" value="{{ old('postal_code', $user->postal_code) }}">
         </div>
         <div class="form__error">
           @error('postal_code')
@@ -50,7 +57,7 @@
       </div>
       <div class="form__group-content">
         <div class="form__input--text">
-          <input type="text" name="address">
+          <input type="text" name="address" value="{{ old('address', $user->address) }}">
         </div>
         <div class="form__error">
           @error('address')
@@ -66,12 +73,7 @@
       </div>
       <div class="form__group-content">
         <div class="form__input--text">
-          <input type="text" name="building">
-        </div>
-        <div class="form__error">
-          @error('building')
-            {{ $message }}
-          @enderror
+          <input type="text" name="building" value="{{ old('building', $user->building) }}">
         </div>
       </div>
     </div>

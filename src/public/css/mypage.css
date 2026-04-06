@@ -1,0 +1,64 @@
+.mypage__content {
+  max-width: 1230px;
+  margin: 0 auto;
+  padding: 15px;
+}
+
+.mypage__menu {
+  width: 70%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 60px;
+  padding: 15px;
+}
+
+.mypage__image,
+.mypage__image-preview {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+.mypage__image {
+  object-fit: cover;
+}
+
+.mypage__image-preview {
+  background-color: #D9D9D9;
+}
+
+.mypage__menu-item {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.mypage__menu-link {
+  margin-left: 70px;
+  text-decoration: none;
+  border: 2px solid #FF5555;
+  color: #FF5555;
+  cursor: pointer;
+  border-radius: 3px;
+  padding: 6px 12px;
+}
+
+.mypage__tab {
+  border-bottom: 2px solid #5F5F5F;
+  margin-top: 50px;
+}
+
+.mypage__tab-list {
+  display: flex;
+  gap: 30px;
+  padding: 0px 30px;
+}
+
+.mypage__tab-item a {
+  text-decoration: none;
+}
+
+.mypage__tab-item.is-active a {
+  color: #FF0000;
+}

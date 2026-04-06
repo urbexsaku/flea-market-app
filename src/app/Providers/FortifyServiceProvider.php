@@ -22,13 +22,13 @@ class FortifyServiceProvider extends ServiceProvider
     {
         $this->app->bind(FortifyLoginRequest::class, LoginRequest::class);
 
-        $this->app->singleton(ResisterResponse::class, function()
+        $this->app->singleton(RegisterResponse::class, function()
         {
-            return new class implements ResisterResponse
+            return new class implements RegisterResponse
             {
                 public function toResponse($request)
                 {
-                    return redirect('/profile');
+                    return redirect('/mypage/profile');
                 }
             };
         });

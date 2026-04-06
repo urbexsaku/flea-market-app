@@ -1,13 +1,46 @@
 .header {
   max-width: 1230px;
+  margin: 0 auto;
 }
 
 .header__inner {
   background-color: black;
   padding: 15px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .header__logo {
   width: 250px;
   height: auto;
 }
+
+.header__form input{
+  width: 300px;
+  height: 30px;
+  padding: 10px 30px;
+}
+
+.header__nav ul{
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+}
+
+.header__button {
+  border: none;
+  outline: none;
+  background: transparent;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.header__link {
+  text-decoration: none;
+  color: white;
+  font-size: 16px;
+}
+
