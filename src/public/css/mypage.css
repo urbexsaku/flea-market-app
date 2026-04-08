@@ -1,5 +1,5 @@
 .mypage__content {
-  max-width: 1230px;
+  width: 100%;
   margin: 0 auto;
   padding: 15px;
 }
@@ -52,13 +52,31 @@
 .mypage__tab-list {
   display: flex;
   gap: 30px;
-  padding: 0px 30px;
+  padding: 0px 50px;
 }
 
 .mypage__tab-item a {
   text-decoration: none;
+  color: #5F5F5F;
 }
 
 .mypage__tab-item.is-active a {
   color: #FF0000;
+}
+
+.mypage__item-list {
+  padding: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.mypage__item {
+  width: calc((100% - 60px) / 4);
+}
+
+.mypage__item-image {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
 }

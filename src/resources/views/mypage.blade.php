@@ -20,10 +20,10 @@
   <div class="mypage__list">
     <nav class="mypage__tab">
       <ul class="mypage__tab-list">
-        <li class="mypage__tab-item {{ $tab === 'sell' ? 'is-active' : '' }}">
+        <li class="mypage__tab-item {{ $page === 'sell' ? 'is-active' : '' }}">
           <a href="/mypage?page=sell">出品した商品</a>
         </li>
-        <li class="mypage__tab-item {{ $tab === 'buy' ? 'is-active' : '' }}">
+        <li class="mypage__tab-item {{ $page === 'buy' ? 'is-active' : '' }}">
           <a href="/mypage?page=buy">購入した商品</a>
         </li>
       </ul>
@@ -32,7 +32,7 @@
     <div class="mypage__item-list">
       @foreach ($items as $item)
       <div class="mypage__item">
-        <img class="mypage__item-image" src="{{ asset($item->image) }}">
+        <img class="mypage__item-image" src="{{ asset('storage/' . $item->image) }}">
         <p class="mypage__item-name">{{ $item->name }}</p>
       </div>
       @endforeach

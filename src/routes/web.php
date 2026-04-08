@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
-use App\Http\Controllers\MyPageController;
+use App\Http\Controllers\MypageController;
 use App\Http\Controllers\ProfileController;
 
 /*
@@ -21,7 +21,7 @@ Route::middleware('auth')->group(function()
   Route::get('/', [ItemController::class, 'index']);
 });
 
-Route::get('/mypage', [MyPageController::class, 'index'])->middleware('auth');
+Route::get('/mypage', [MypageController::class, 'index'])->middleware('auth');
 
 Route::get('/mypage/profile', [ProfileController::class, 'edit'])->middleware('auth');
 Route::post('/mypage/profile', [ProfileController::class, 'update'])->middleware('auth');

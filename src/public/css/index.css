@@ -1,0 +1,42 @@
+.item__content {
+  width: 100%;
+  margin: 0 auto;
+  padding: 15px;
+}
+
+.item__tab {
+  border-bottom: 2px solid #5F5F5F;
+  margin-top: 50px;
+}
+
+.item__tab-list {
+  display: flex;
+  gap: 30px;
+  padding: 0px 50px;
+}
+
+.item__tab-item a {
+  text-decoration: none;
+  color: #5F5F5F;
+}
+
+.item__tab-item.is-active a {
+  color: #FF0000;
+}
+
+.item__item-list {
+  padding: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.item__item {
+  width: calc((100% - 60px) / 4);
+}
+
+.item__item-image {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}

@@ -10,11 +10,7 @@ class ProfileController extends Controller
     public function edit()
     {
         $user = auth()->user();
-
-        if (!$user->postal_code || !$user->address){
-            return view('profile', compact('user'));
-        }
-
+        return view('profile', compact('user'));
     }
 
     public function update(ProfileRequest $request)
