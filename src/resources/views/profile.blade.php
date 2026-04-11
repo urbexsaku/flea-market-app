@@ -13,10 +13,20 @@
   <form class="form" action="/mypage/profile" method="post" enctype="multipart/form-data" novalidate>
     @csrf
     <div class="form__image">
-      <div class="form__image-preview"></div>
+      <img
+        class="form__image-preview"
+        id="imagePreview"
+        src="{{ $user->profile_image ? asset('storage/' . $user->profile_image) : '' }}"
+        style="{{ $user->profile_image ? 'display:block' : 'display:none;' }}"
+      >
+      <div
+        class="form__image-placeholder"
+        id="imagePlaceholder"
+        style="{{ $user->profile_image ? 'display:none' : 'display:block' }}"
+      ></div>
       <label class="form__image-button">
         画像を選択する
-        <input type="file" name="profile_image" hidden>
+        <input type="file" name="profile_image" id="imageInput" accept="image/*" hidden>
       </label>
     </div>
     <div class="form__group">
@@ -84,4 +94,25 @@
   </form>
 </div>
 
+<script>
+  const imageInput = document.getElementById('imageInput');
+  const imagePreview = document.getElementById('imagePreview');
+  const imagePlaceholder = document.getElementById('imagePlaceholder');
+
+  imageInput.addEventListener('change',function(e) {
+    const file = e.target.files[0];
+
+    if (!file) return;
+
+    const reader = new FileReader();
+
+    reader.onload = function(event) {
+      imagePreview.src = event.target.result;
+      imagePreview.style.display ='block';
+      imagePlaceholder.style.display = 'none';
+    };
+
+    reader.readAsDataURL(file);
+  });
+</script>
 @endsection

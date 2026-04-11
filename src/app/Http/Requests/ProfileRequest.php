@@ -26,7 +26,8 @@ class ProfileRequest extends FormRequest
         return [
             'name' => ['required', 'max:20'],
             'postal_code' => ['required','regex:/^\d{3}-\d{4}$/'],
-            'address' => ['required']
+            'address' => ['required'],
+            'profile_image' => ['mimes:jpeg,png'],
         ];
     }
 
@@ -38,6 +39,7 @@ class ProfileRequest extends FormRequest
             'postal_code.required' => '郵便番号を入力してください',
             'postal_code.regex' => '郵便番号を正しい形式で入力してください',
             'address.required' => '住所を入力してください',
+            'profile_image.mimes' => 'jpegまたはpng形式の画像を選択してください'
         ];
     }
 }
