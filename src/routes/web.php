@@ -16,12 +16,10 @@ use App\Http\Controllers\ProfileController;
 |
 */
 
-Route::middleware('auth')->group(function()
-{
-  Route::get('/', [ItemController::class, 'index']);
+Route::get('/', [ItemController::class, 'index']);
+
+Route::middleware('auth')->group(function() {
+  Route::get('/mypage', [MypageController::class, 'index']);
+  Route::get('/mypage/profile', [ProfileController::class, 'edit']);
+  Route::post('/mypage/profile', [ProfileController::class, 'update']);
 });
-
-Route::get('/mypage', [MypageController::class, 'index'])->middleware('auth');
-
-Route::get('/mypage/profile', [ProfileController::class, 'edit'])->middleware('auth');
-Route::post('/mypage/profile', [ProfileController::class, 'update'])->middleware('auth');

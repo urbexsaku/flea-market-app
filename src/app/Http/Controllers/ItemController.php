@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Item;
 
 class ItemController extends Controller
 {
@@ -13,7 +15,7 @@ class ItemController extends Controller
         if ($tab === 'like') {
             $items = Auth::user()->likedItems()->get();
         } else {
-            $items = Item::where('user_id', Auth::id())->get();
+            $items = Item::all();
         }
 
         return view('index', compact('tab','items'));

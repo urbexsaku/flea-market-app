@@ -26,13 +26,10 @@
 
 .item__item-list {
   padding: 30px;
-  display: flex;
-  flex-wrap: wrap;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   gap: 30px;
-}
-
-.item__item {
-  width: calc((100% - 60px) / 4);
 }
 
 .item__item-image {
