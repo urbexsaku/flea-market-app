@@ -5,19 +5,43 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Item;
+use App\Models\User;
 
 class ItemController extends Controller
 {
     public function index(Request $request)
     {
-        $tab = $request->query('tab', '');
+        $tab = $request->tab ?? 'recommend'; //デフォルトタブをrecommendに設定（null=recommend）
+        $keyword = $request->keyword;
 
-        if ($tab === 'like') {
-            $items = Auth::user()->likedItems()->get();
+        if ($tab === 'mylist') { //マイリストタブの設定
+            if (auth()->check()) {
+                $query = auth()->user()->likedItems(); //ログイン済ならlikedItems取得
+            } else {
+                $query = Item::whereRaw('0=1'); //未ログインなら空を返すダミークエリ
+            }
         } else {
-            $items = Item::all();
+            if (auth()->check()) {
+                $query = Item::where('user_id', '!=', auth()->id()); //ログイン済みならログインユーザーが出品した商品を除外
+            } else {
+                $query = Item::query(); //未ログインならすべて表示
+            }
         }
 
-        return view('index', compact('tab','items'));
+        if (!empty($keyword)) {
+            $query->KeywordSearch($keyword); //検索機能
+        }
+
+        $items = $query->get();
+
+        return view('index', compact('tab', 'keyword', 'items'));
     }
+
+    public function show($item_id)
+    {
+        $item = Item::findOrFail($item_id);
+
+        return view('item', compact('item'));
+    }
+
 }

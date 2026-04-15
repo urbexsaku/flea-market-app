@@ -68,3 +68,4 @@ php artisan db:seed
 | 佐藤花子 | hanako@example.com | password |
 
 ※すべて同一パスワードでログインできます。
+※出品商品はランダムでユーザーに割り当てています。

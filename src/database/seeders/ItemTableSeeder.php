@@ -36,7 +36,7 @@ class ItemTableSeeder extends Seeder
             [
                 'name' => '玉ねぎ3束',
                 'price' => 300,
-                'brand' => null,
+                'brand' => 'なし',
                 'description' => '新鮮な玉ねぎ3束のセット',
                 'image' => 'images/onion.jpg',
                 'condition' => 3,
@@ -63,7 +63,7 @@ class ItemTableSeeder extends Seeder
             [
                 'name' => 'マイク',
                 'price' => 8000,
-                'brand' => null,
+                'brand' => 'なし',
                 'description' => '高音質のレコーディング用マイク',
                 'image' => 'images/mic.jpg',
                 'condition' => 2,
@@ -81,7 +81,7 @@ class ItemTableSeeder extends Seeder
             [
                 'name' => 'タンブラー',
                 'price' => 500,
-                'brand' => null,
+                'brand' => 'なし',
                 'description' => '使いやすいタンブラー',
                 'image' => 'images/tumbler.jpg',
                 'condition' => 4,

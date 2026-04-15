@@ -48,4 +48,12 @@ class Item extends Model
     public function comments() {
         return $this->hasMany(Comment::class);
     }
+
+    public function scopeKeywordSearch($query, $keyword)
+    {
+        if (!empty($keyword)) {
+            $query->where('name', 'like', '%' . $keyword . '%'); //商品名で部分一致検索
+            }
+        return $query;
+    }
 }

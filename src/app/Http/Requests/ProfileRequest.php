@@ -37,7 +37,7 @@ class ProfileRequest extends FormRequest
             'name.required' => 'ユーザー名を入力してください',
             'name.max' => 'ユーザー名を20文字以下で入力してください',
             'postal_code.required' => '郵便番号を入力してください',
-            'postal_code.regex' => '郵便番号を正しい形式で入力してください',
+            'postal_code.regex' => '郵便番号をハイフン入り8桁で入力してください',
             'address.required' => '住所を入力してください',
             'profile_image.mimes' => 'jpegまたはpng形式の画像を選択してください'
         ];

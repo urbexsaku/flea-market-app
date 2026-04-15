@@ -9,11 +9,11 @@
   <div class="item__list">
     <nav class="item__tab">
       <ul class="item__tab-list">
-        <li class="item__tab-item {{ $tab === '' ? 'is-active' : '' }}">
-          <a href="/item?page=sell">おすすめ</a>
+        <li class="item__tab-item {{ $tab === 'recommend' ? 'is-active' : '' }}">
+          <a href="/?tab=recommend&keyword={{ $keyword ?? '' }}">おすすめ</a>
         </li>
-        <li class="item__tab-item {{ $tab === 'like' ? 'is-active' : '' }}">
-          <a href="/?tab=mylist">マイリスト</a>
+        <li class="item__tab-item {{ $tab === 'mylist' ? 'is-active' : '' }}">
+          <a href="/?tab=mylist&keyword={{ $keyword ?? '' }}">マイリスト</a>
         </li>
       </ul>
     </nav>
@@ -21,10 +21,12 @@
     <div class="item__item-list">
       @foreach ($items as $item)
       <div class="item__item">
-        <img class="item__item-image" src="{{ asset('storage/' . $item->image) }}">
+        <a href="/item/{{ $item->id }}">
+          <img class="item__item-image" src="{{ asset('storage/' . $item->image) }}">
+        </a>
         <p class="item__item-name">{{ $item->name }}</p>
       </div>
       @endforeach
     </div>
   </div>
-@endsection
+  @endsection

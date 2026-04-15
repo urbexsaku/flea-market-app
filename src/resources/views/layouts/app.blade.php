@@ -19,7 +19,7 @@
     </div>
 
     <div class="header__center">
-      <form class="header__form">
+      <form class="header__form" action="/" method="get">
         <input type="text" name="keyword" placeholder="なにをお探しですか？">
       </form>
     </div>

@@ -10,12 +10,12 @@ class MypageController extends Controller
 {
     public function index(Request $request)
     {
-        $page = $request->query('page', 'sell');
+        $page = $request->query('page', 'sell'); //sellタブをデフォルトに設定
 
-        if ($page === 'buy') {
-            $items = Auth::user()->purchasedItems()->get();
-        } else {
-            $items = Item::where('user_id', Auth::id())->get();
+        if ($page === 'buy') { //buyタブが選択されている場合
+            $items = Auth::user()->purchasedItems()->get(); //purchasesテーブルを経由してユーザーidが購入した商品を取得
+        } else { //sellタブが選択されている場合
+            $items = Item::where('user_id', Auth::id())->get(); //itemsテーブルからユーザーidが出品した商品を取得
         }
 
         return view('mypage', compact('page','items'));

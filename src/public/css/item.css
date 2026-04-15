@@ -1,0 +1,58 @@
+.item__content {
+  width: 100%;
+  margin: 0 auto;
+  padding: 50px;
+}
+
+.item-detail {
+  display: flex;
+  gap: 50px;
+}
+
+.item-detail__image,
+.item-detail__info {
+  flex: 1; 
+  min-width: 0;
+}
+
+.item-detail__image {
+  display: flex;
+  justify-content: center;
+}
+
+.item-detail__image img{
+  width: 80%;
+  height: auto;
+  display: block;
+}
+
+.item-name,
+.item-brand {
+  margin: 0;
+}
+
+.item-price {
+  font-size: 24px;
+  margin: 8px 0;
+}
+
+.item-actions {
+  padding: 0 20px;
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+
+.action-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.action-icon {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+
