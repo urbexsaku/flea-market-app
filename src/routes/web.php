@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\MypageController;
@@ -25,4 +26,5 @@ Route::middleware('auth')->group(function() {
   Route::get('/mypage/profile', [ProfileController::class, 'edit']);
   Route::post('/mypage/profile', [ProfileController::class, 'update']);
   Route::post('/like/{item_id}', [LikeController::class, 'toggle']);
+  Route::post('/comment/{item_id}', [CommentController::class, 'store']);
 });

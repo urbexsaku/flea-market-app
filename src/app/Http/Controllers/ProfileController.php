@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Http\Requests\ProfileRequest;
 
 class ProfileController extends Controller
@@ -30,7 +29,7 @@ class ProfileController extends Controller
 
         $user->update($data);
 
-        return redirect('/mypage');
+        return redirect('/');
     }
 
 }

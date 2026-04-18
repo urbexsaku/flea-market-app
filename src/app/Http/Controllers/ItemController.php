@@ -18,13 +18,13 @@ class ItemController extends Controller
             if (auth()->check()) {
                 $query = auth()->user()->likedItems(); //ログイン済ならlikedItems取得
             } else {
-                $query = Item::whereRaw('0=1'); //未ログインなら空を返すダミークエリ
+                $query = Item::whereRaw('0=1')->with('categories'); //未ログインなら空を返すダミークエリ
             }
         } else {
             if (auth()->check()) {
                 $query = Item::where('user_id', '!=', auth()->id()); //ログイン済みならログインユーザーが出品した商品を除外
             } else {
-                $query = Item::query(); //未ログインならすべて表示
+                $query = Item::query()->with('categories'); //未ログインならすべて表示
             }
         }
 

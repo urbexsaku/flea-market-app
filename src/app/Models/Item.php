@@ -11,7 +11,6 @@ class Item extends Model
 
     protected $fillable = [
         'user_id',
-        'category_id',
         'name',
         'brand',
         'price',
@@ -29,8 +28,13 @@ class Item extends Model
         ][$this->condition];
     }
 
-    public function category() {
-        return $this->belongsTo(Category::class);
+    public function categories() {
+        return $this->belongsToMany(
+            Category::class,
+            'category_item',
+            'item_id',
+            'category_id'
+        );
     }
 
     public function user() {
@@ -43,6 +47,17 @@ class Item extends Model
 
     public function likes() {
         return $this->hasMany(Like::class);
+    }
+
+    public function isLikedBy($user)
+    {
+        if (!$user) {
+            return false;
+        }
+
+        return $this->likes() //いいね一覧
+        ->where('user_id', $user->id) //ユーザーがいいねしているか
+        ->exists(); //1件でもあればtrue
     }
 
     public function comments() {
