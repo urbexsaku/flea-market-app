@@ -11,14 +11,20 @@ class Purchase extends Model
 
     protected $fillable = [
         'user_id',
-        'category_id',
-        'name',
-        'brand',
-        'price',
-        'description',
-        'condition',
-        'image'
+        'item_id',
+        'payment_method',
+        'postal_code',
+        'address',
+        'building',
     ];
+
+    public function getPaymentMethodTextAttribute()
+    {
+        return [
+            1 => 'コンビニ支払い',
+            2 => 'カード支払い',
+        ][$this->payment_method];
+    }
 
     public function user() {
         return $this->belongsTo(User::class);

@@ -1,0 +1,99 @@
+.purchase__content {
+  max-width: 1230px;
+  display: flex;
+  margin: 0 auto;
+}
+
+.purchase__main {
+  flex: 1;
+  padding: 50px;
+}
+
+.purchase-item {
+  display: flex;
+  gap: 50px;
+  padding-bottom: 50px;
+  border-bottom: 2px solid #5F5F5F;
+}
+
+.purchase-item__image img {
+  width: 200px;
+}
+
+.purchase-item__price {
+  font-size: 24px;
+}
+
+.purchase__summary {
+  width: 400px;
+  padding: 50px 30px;
+}
+
+.purchase-section__payment,
+.purchase-section__delivery {
+  padding: 20px 50px;
+  border-bottom: 2px solid #5F5F5F;
+}
+
+.purchase-section__payment-select {
+  padding: 20px 50px;
+}
+
+.purchase-section__payment-select select {
+  padding: 5px;
+  width: 200px;
+}
+
+.purchase-section__header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.purchase-section__link {
+  padding: 20px;
+  text-decoration: none;
+  color: #0073CC;
+}
+
+.purchase-section__address {
+  padding: 20px 50px;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.order-summary__table {
+  border: 2px solid #5F5F5F;
+}
+
+.order-summary__row {
+  display: flex;
+  padding: 30px;
+}
+
+.order-summary__row + .order-summary__row {
+  border-top: 2px solid #5F5F5F;
+}
+
+.order-summary__label,
+.order-summary__price,
+.order-summary__payment {
+  flex: 1;
+  text-align: center;
+}
+
+.order-summary__button-submit {
+  margin-top: 30px;
+  width: 100%;
+  height: 40px;
+  background-color: #FF5555;
+  cursor: pointer;
+  border: none;
+  color: white;
+  font-weight: bold;
+}
+
+.form__error {
+  color: red;
+  text-align: left;
+  margin-top: 5px;
+}

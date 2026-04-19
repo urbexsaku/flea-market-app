@@ -8,7 +8,7 @@
 <div class="item-detail__content">
   <div class="item-detail">
     <div class="item-detail__image">
-      <img src=" {{ asset('storage/' . $item->image) }}">
+      <img src="{{ asset('storage/' . $item->image) }}">
     </div>
 
     <div class="item-detail__info">
@@ -23,7 +23,7 @@
       <div class="item-detail__actions">
         <div class="item-detail__action">
           @auth
-          <button type="button" id="likeButton" data-item-id="{{ $item->id }}">
+          <button type="button" id="likeButton" class="item-detail__action-button" data-item-id="{{ $item->id }}">
             <img
               id="heart"
               src="{{ $item->isLikedBy(auth()->user()) ? asset('images/heart-logo-pink.png') : asset('images/heart-logo-default.png') }}"
@@ -44,7 +44,7 @@
       </div>
 
       <div class="item-detail__purchase">
-        <a class="item-detail__purchase-link" href="/purchase">購入手続きへ</a>
+        <a class="item-detail__purchase-link" href="/purchase/{{ $item->id }}">購入手続きへ</a>
       </div>
 
       <h2 class="item-detail__heading">商品説明</h2>
@@ -81,7 +81,7 @@
           </div>
           <p class="item-detail__comment-text">{{ $comment->content }}</p>
         </div>
-      @endforeach
+        @endforeach
 
         <div class="item-detail__comment-form-wrap">
           <h2 class="item-detail__comment-form-heading">商品へのコメント</h2>
@@ -92,7 +92,7 @@
             </div>
 
             @error('content')
-              <p class="item-detail__comment-error">{{ $message }}</p>
+            <p class="item-detail__comment-error">{{ $message }}</p>
             @enderror
 
             <button type="submit" class="item-detail__comment-button">コメントを送信する</button>
@@ -108,25 +108,29 @@
   const heart = document.getElementById('heart'); //id=heartの要素取得
   const count = document.getElementById('likeCount'); //id=likeCountの要素取得
 
-  button.addEventListener('click', async () => { //likeButtonクリック時に実行
-    const itemId = button.dataset.itemId; //data-item-idからitem id取得
+  if (button) {
+    button.addEventListener('click', async () => { //likeButtonクリック時に実行
+      const itemId = button.dataset.itemId; //data-item-idからitem id取得
 
-    const response = await fetch(`/like/${itemId}`, {
-      method: 'POST',
-      headers: {
-        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content, 'X-Requested-With' : 'XMLHttpRequest'
-            }
-            });
+      const response = await fetch(`/like/${itemId}`, {
+        method: 'POST',
+        headers: {
+          'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+          'X-Requested-With': 'XMLHttpRequest',
+          'Accept': 'application/json'
+        }
+      });
 
-    const data = await response.json();
+      const data = await response.json();
 
-    if (data.liked) { //LikeControllerから返ってきたlikedがtrueなら
-    heart.src='images/heart-logo-pink.png' ;
-    } else {
-    heart.src='images/heart-logo-default.png' ;
-    }
+      if (data.liked) { //LikeControllerから返ってきたlikedがtrueなら
+        heart.src = "{{ asset('images/heart-logo-pink.png') }}";
+      } else {
+        heart.src = "{{ asset('images/heart-logo-default.png') }}";
+      }
 
-    count.textContent=data.count;
-  });
+      count.textContent = data.count;
+    });
+  }
 </script>
 @endsection

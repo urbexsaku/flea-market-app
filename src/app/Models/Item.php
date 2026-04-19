@@ -16,7 +16,8 @@ class Item extends Model
         'price',
         'description',
         'condition',
-        'image'
+        'image',
+        'is_sold',
     ];
 
     public function getConditionTextAttribute() {

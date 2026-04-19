@@ -5,28 +5,32 @@
 @endsection
 
 @section('content')
-<div class="item__content">
-  <div class="item__list">
-    <nav class="item__tab">
-      <ul class="item__tab-list">
-        <li class="item__tab-item {{ $tab === 'recommend' ? 'is-active' : '' }}">
-          <a href="/?tab=recommend&keyword={{ $keyword ?? '' }}">おすすめ</a>
-        </li>
-        <li class="item__tab-item {{ $tab === 'mylist' ? 'is-active' : '' }}">
-          <a href="/?tab=mylist&keyword={{ $keyword ?? '' }}">マイリスト</a>
-        </li>
-      </ul>
-    </nav>
+<div class="item-list__content">
+  <nav class="item-list__tab">
+    <ul class="item-list__tab-list">
+      <li class="item-list__tab-item {{ $tab === 'recommend' ? 'is-active' : '' }}">
+        <a href="/?tab=recommend&keyword={{ $keyword ?? '' }}">おすすめ</a>
+      </li>
+      <li class="item-list__tab-item {{ $tab === 'mylist' ? 'is-active' : '' }}">
+        <a href="/?tab=mylist&keyword={{ $keyword ?? '' }}">マイリスト</a>
+      </li>
+    </ul>
+  </nav>
 
-    <div class="item__item-list">
-      @foreach ($items as $item)
-      <div class="item__item">
-        <a href="/item/{{ $item->id }}">
-          <img class="item__item-image" src="{{ asset('storage/' . $item->image) }}">
-        </a>
-        <p class="item__item-name">{{ $item->name }}</p>
-      </div>
-      @endforeach
+  <div class="item-list__grid">
+    @foreach ($items as $item)
+    <div class="item-list__card">
+      <a href="/item/{{ $item->id }}">
+        <div class="item-list__image-wrap">
+          <img class="item-list__image" src="{{ asset('storage/' . $item->image) }}">
+          @if ($item->is_sold)
+          <span class="item-list__sold">SOLD</span>
+          @endif
+        </div>
+      </a>
+      <p class="item-list__name">{{ $item->name }}</p>
     </div>
+    @endforeach
   </div>
-  @endsection
+</div>
+@endsection
