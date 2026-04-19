@@ -27,11 +27,11 @@
             <option value="1">コンビニ支払い</option>
             <option value="2">カード支払い</option>
           </select>
-          <div class="form__error">
-            @error('payment_method')
-            {{ $message }}
-            @enderror
-          </div>
+        </div>
+        <div class="form__error">
+          @error('payment_method')
+          {{ $message }}
+          @enderror
         </div>
       </div>
 
@@ -43,6 +43,16 @@
         <div class="purchase-section__address">
           〒 {{ $deliveryAddress['postal_code'] }}<br>
           {{ $deliveryAddress['address'] }} {{ $deliveryAddress['building'] }}
+        </div>
+        <div class="form__error">
+          @error('postal_code')
+          {{ $message }}
+          @enderror
+        </div>
+        <div class="form__error">
+          @error('address')
+          {{ $message }}
+          @enderror
         </div>
 
         <input type="hidden" name="postal_code" value="{{ $deliveryAddress['postal_code'] }}">

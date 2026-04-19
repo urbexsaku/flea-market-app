@@ -7,10 +7,10 @@
     @csrf
     <div class="form__group">
       <div class="form__group-title">
-        <span class="form__label--item">ユーザー名</span>
+        <span class="form__label">ユーザー名</span>
       </div>
       <div class="form__group-content">
-        <div class="form__input--text">
+        <div class="form__input">
           <input type="text" name="name" value="{{ old('name') }}">
         </div>
         <div class="form__error">
@@ -23,10 +23,10 @@
 
     <div class="form__group">
       <div class="form__group-title">
-        <span class="form__label--item">メールアドレス</span>
+        <span class="form__label">メールアドレス</span>
       </div>
       <div class="form__group-content">
-        <div class="form__input--text">
+        <div class="form__input">
           <input type="email" name="email" value="{{ old('email') }}">
         </div>
         <div class="form__error">
@@ -39,10 +39,10 @@
 
     <div class="form__group">
       <div class="form__group-title">
-        <span class="form__label--item">パスワード</span>
+        <span class="form__label">パスワード</span>
       </div>
       <div class="form__group-content">
-        <div class="form__input--text">
+        <div class="form__input">
           <input type="password" name="password">
         </div>
         <div class="form__error">
@@ -55,10 +55,10 @@
 
     <div class="form__group">
       <div class="form__group-title">
-        <span class="form__label--item">確認用パスワード</span>
+        <span class="form__label">確認用パスワード</span>
       </div>
       <div class="form__group-content">
-        <div class="form__input--text">
+        <div class="form__input">
           <input type="password" name="password_confirmation">
         </div>
         <div class="form__error">

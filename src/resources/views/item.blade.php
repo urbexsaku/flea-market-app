@@ -43,9 +43,13 @@
         </div>
       </div>
 
+      @if ($item->is_sold)
+      <div class="order-summary__soldout">売り切れ</div>
+      @else
       <div class="item-detail__purchase">
         <a class="item-detail__purchase-link" href="/purchase/{{ $item->id }}">購入手続きへ</a>
       </div>
+      @endif
 
       <h2 class="item-detail__heading">商品説明</h2>
       <p class="item-detail__description">{{ $item->description }}</p>
