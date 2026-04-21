@@ -11,7 +11,7 @@
     <div class="purchase__main">
       <div class="purchase-item">
         <div class="purchase-item__image">
-          <img src=" {{ asset('storage/' . $item->image) }}">
+          <img src="{{ asset('storage/' . $item->image) }}">
         </div>
         <div class="purchase-item__info">
           <h2 class="purchase-item__name">{{ $item->name }}</h2>
@@ -61,20 +61,18 @@
       </div>
     </div>
 
-    <aside class=" purchase__summary">
-      <div class="order-summary">
-        <div class="order-summary__table">
-          <div class="order-summary__row">
-            <span class="order-summary__label">商品代金</span>
-            <span class="order-summary__price">¥{{ number_format($item->price) }}</span>
-          </div>
-          <div class="order-summary__row">
-            <span class="order-summary__label">支払い方法</span>
-            <span class="order-summary__payment" id="paymentText"></span>
-          </div>
+    <aside class="purchase-summary">
+      <div class="purchase-summary__table">
+        <div class="purchase-summary__row">
+          <span class="purchase-summary__label">商品代金</span>
+          <span class="purchase-summary__price">¥{{ number_format($item->price) }}</span>
         </div>
-        <button type="submit" class="order-summary__button-submit">購入する</button>
+        <div class="purchase-summary__row">
+          <span class="purchase-summary__label">支払い方法</span>
+          <span class="purchase-summary__payment" id="paymentText"></span>
+        </div>
       </div>
+      <button type="submit" class="purchase-summary__button">購入する</button>
     </aside>
   </div>
 </form>

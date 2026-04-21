@@ -24,7 +24,7 @@
         <div class="item-list__image-wrap">
           <img class="item-list__image" src="{{ asset('storage/' . $item->image) }}">
           @if ($item->is_sold)
-          <span class="item-list__sold">SOLD</span>
+          <span class="item-list__sold">Sold</span>
           @endif
         </div>
       </a>

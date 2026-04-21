@@ -44,7 +44,7 @@
       </div>
 
       @if ($item->is_sold)
-      <div class="order-summary__soldout">売り切れ</div>
+      <div class="item-detail__soldout">売り切れ</div>
       @else
       <div class="item-detail__purchase">
         <a class="item-detail__purchase-link" href="/purchase/{{ $item->id }}">購入手続きへ</a>

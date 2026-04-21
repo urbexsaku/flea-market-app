@@ -24,11 +24,6 @@
   font-size: 24px;
 }
 
-.purchase__summary {
-  width: 400px;
-  padding: 50px 30px;
-}
-
 .purchase-section__payment,
 .purchase-section__delivery {
   padding: 20px 50px;
@@ -61,27 +56,32 @@
   font-size: 20px;
 }
 
-.order-summary__table {
+.purchase-summary {
+  width: 400px;
+  padding: 50px 30px;
+}
+
+.purchase-summary__table {
   border: 2px solid #5F5F5F;
 }
 
-.order-summary__row {
+.purchase-summary__row {
   display: flex;
   padding: 30px;
 }
 
-.order-summary__row + .order-summary__row {
+.purchase-summary__row + .purchase-summary__row {
   border-top: 2px solid #5F5F5F;
 }
 
-.order-summary__label,
-.order-summary__price,
-.order-summary__payment {
+.purchase-summary__label,
+.purchase-summary__price,
+.purchase-summary__payment {
   flex: 1;
   text-align: center;
 }
 
-.order-summary__button-submit {
+.purchase-summary__button {
   margin-top: 30px;
   width: 100%;
   height: 40px;

@@ -7,14 +7,14 @@
 @section('content')
 <div class="mypage__content">
   <div class="mypage__menu">
-    @if (Auth::user()->profile_image)
+    @if ($user->profile_image)
       <img 
         class="mypage__image"
-        src="{{ asset('storage/' . Auth::user()->profile_image) }}">
+        src="{{ asset('storage/' . $user->profile_image) }}">
     @else
       <div class="mypage__image-preview"></div>
     @endif
-    <span class="mypage__menu-item">{{ Auth::user()->name }}</span>
+    <span class="mypage__menu-item">{{ $user->name }}</span>
     <a class="mypage__menu-link" href="/mypage/profile">プロフィールを編集</a>
   </div>
   <div class="mypage__list">
@@ -28,6 +28,7 @@
         </li>
       </ul>
     </nav>
+    
 
     <div class="mypage__item-list">
       @foreach ($items as $item)
@@ -38,10 +39,5 @@
       @endforeach
     </div>
   </div>
-  
-    
-
-
 </div>
-
 @endsection

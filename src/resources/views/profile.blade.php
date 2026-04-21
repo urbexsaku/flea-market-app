@@ -6,7 +6,7 @@
 
 @section('content')
 <div class="profile-form__content">
-  <h2 class="profile-form__heading">プロフィール設定</h2>
+  <h1 class="profile-form__heading">プロフィール設定</h1>
   <form class="form" action="/mypage/profile" method="post" enctype="multipart/form-data" novalidate>
     @csrf
     <div class="form__image">

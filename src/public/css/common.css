@@ -21,6 +21,11 @@
   padding: 10px 30px;
 }
 
+input::placeholder {
+  color: black;
+  opacity: 1;
+}
+
 .header__nav ul{
   display: flex;
   justify-content: space-between;
