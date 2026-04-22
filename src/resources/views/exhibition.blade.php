@@ -12,13 +12,14 @@
     <div class="sell-form__image">
       <h2 class="sell-form__image-heading">商品画像</h2>
       <div class="sell-form__image-area">
+        <img id="imagePreview" class="sell-form__image-preview" src="" style="display: none;">
         <label class="form__image-button" for="imageInput">画像を選択する</label>
         <input type="file" name="image" id="imageInput" accept="image/*" hidden>
-        <div class="sell-form__error">
-          @error('image')
-          {{ $message }}
-          @enderror
-        </div>
+      </div>
+      <div class="sell-form__error">
+        @error('image')
+        {{ $message }}
+        @enderror
       </div>
     </div>
 
@@ -34,16 +35,26 @@
           </label>
           @endforeach
         </div>
+        <div class="sell-form__error">
+          @error('categories')
+          {{ $message }}
+          @enderror
+        </div>
       </div>
       <div class="sell-form__condition">
         <div class="sell-form__condition-title">商品の状態</div>
         <select name="condition" class="sell-form__condition-select">
-          <option value="0">選択してください</option>
+          <option value="">選択してください</option>
           <option value="1">良好</option>
           <option value="2">目立った傷や汚れなし</option>
           <option value="3">やや傷や汚れあり</option>
           <option value="4">状態が悪い</option>
         </select>
+        <div class="sell-form__error">
+          @error('condition')
+          {{ $message }}
+          @enderror
+        </div>
       </div>
     </div>
 
@@ -112,13 +123,14 @@
       <div class="sell-form__button">
         <button type="submit" class="sell-form__button-submit">出品する</button>
       </div>
+    </div>
   </form>
 </div>
 
 <script>
   const imageInput = document.getElementById('imageInput');
   const imagePreview = document.getElementById('imagePreview');
-  const imagePlaceholder = document.getElementById('imagePlaceholder');
+  const imageArea = document.querySelector('.sell-form__image-area');
 
   imageInput.addEventListener('change', function(e) {
     const file = e.target.files[0];
@@ -130,7 +142,7 @@
     reader.onload = function(event) {
       imagePreview.src = event.target.result;
       imagePreview.style.display = 'block';
-      imagePlaceholder.style.display = 'none';
+      imageArea.classList.add('is-active');
     };
 
     reader.readAsDataURL(file);

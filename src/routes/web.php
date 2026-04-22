@@ -34,4 +34,5 @@ Route::middleware('auth')->group(function() {
     Route::get('/purchase/address/{item_id}', [PurchaseController::class, 'edit']);
     Route::post('/purchase/address/{item_id}', [PurchaseController::class, 'update']);
     Route::get('/sell', [ExhibitionController::class, 'index']);
+    Route::post('/sell', [ExhibitionController::class, 'store']);
 });
