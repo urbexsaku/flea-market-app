@@ -15,7 +15,7 @@
 }
 
 .mypage__image,
-.mypage__image-preview {
+.mypage__image-placeholder {
   width: 100px;
   height: 100px;
   border-radius: 50%;
@@ -25,7 +25,7 @@
   object-fit: cover;
 }
 
-.mypage__image-preview {
+.mypage__image-placeholder {
   background-color: #D9D9D9;
 }
 

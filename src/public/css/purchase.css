@@ -1,7 +1,8 @@
 .purchase__content {
   max-width: 1230px;
-  display: flex;
   margin: 0 auto;
+  padding: 30px 15px;
+  display: flex;
 }
 
 .purchase__main {

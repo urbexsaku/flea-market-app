@@ -17,8 +17,8 @@ class PurchaseController extends Controller
         $item = Item::findOrFail($item_id);
         $user = auth()->user();
 
-        $deliveryAddress = session('delivery_address', [
-            'postal_code' => $user->postal_code,
+        $deliveryAddress = session('delivery_address', [ //住所変更ある場合、変更した住所をセッションから取得
+            'postal_code' => $user->postal_code, //住所変更ない場合、ユーザー登録住所を取得
             'address' => $user->address,
             'building' => $user->building,
         ]);
@@ -31,8 +31,8 @@ class PurchaseController extends Controller
         $item = Item::findOrFail($item_id);
         $user = auth()->user();
 
-        $deliveryAddress = session('delivery_address', [
-            'postal_code' => $user->postal_code,
+        $deliveryAddress = session('delivery_address', [ //住所変更ある場合、変更した住所をセッションから取得
+            'postal_code' => $user->postal_code, //住所変更ない場合、ユーザー登録住所を取得
             'address' => $user->address,
             'building' => $user->building,
         ]);
@@ -43,7 +43,7 @@ class PurchaseController extends Controller
     public function update(AddressRequest $request, $item_id)
     {
         session([
-            'delivery_address' => [
+            'delivery_address' => [ //住所変更した場合、セッションに保存
                 'postal_code' => $request->postal_code,
                 'address' => $request->address,
                 'building' => $request->building,
@@ -74,7 +74,7 @@ class PurchaseController extends Controller
             'is_sold' => true,
         ]);
 
-        session()->forget('delivery_address');
+        session()->forget('delivery_address'); //セッション削除
 
         return redirect('/');
     }
@@ -83,18 +83,13 @@ class PurchaseController extends Controller
     {
         $item = Item::findOrFail($item_id);
 
-        session([
-            'purchase_data' => [
-                'payment_method' => $request->payment_method,
-                'postal_code' => $request->postal_code,
-                'address' => $request->address,
-                'building' => $request->building,
-            ],
-        ]);
+        if ($item->is_sold) {
+            return redirect('/');
+        }
 
-        Stripe::setApiKey(config('services.stripe.secret'));
+        Stripe::setApiKey(config('services.stripe.secret')); //Stripe認証
 
-        $session = Session::create([
+        $session = Session::create([ //決済セッション作成
             'payment_method_types' => ['card'],
             'line_items' => [[
                 'price_data' => [
@@ -107,30 +102,35 @@ class PurchaseController extends Controller
                 'quantity' => 1
             ]],
             'mode' => 'payment',
-            'success_url' => url('/purchase/success?session_id={CHECKOUT_SESSION_ID}&item_id=' . $item->id),
-            'cancel_url' => url('/purchase/' . $item->id),
+            'success_url' => url('/purchase/success?session_id={CHECKOUT_SESSION_ID}&item_id=' . $item->id), //支払い成功時リダイレクト先
+            'cancel_url' => url('/purchase/' . $item->id), //キャンセル時リダイレクト先
         ]);
 
-        return redirect($session->url);
+        return redirect($session->url); //Stripe決済画面へ遷移
     }
 
     public function success(Request $request)
     {
         $item = Item::findOrFail($request->item_id);
+        $user = auth()->user();
 
         if ($item->is_sold) {
             return redirect('/');
         }
 
-        $purchaseData = session('purchase_data');
+        $deliveryAddress = session('delivery_address', [ //住所変更ある場合、変更した住所をセッションから取得
+            'postal_code' => $user->postal_code, //住所変更ない場合、ユーザー登録住所を取得
+            'address' => $user->address,
+            'building' => $user->building,
+        ]);
 
         Purchase::create([
             'user_id' => auth()->id(),
             'item_id' => $item->id,
-            'payment_method' => $purchaseData['payment_method'],
-            'postal_code' => $purchaseData['postal_code'],
-            'address' => $purchaseData['address'],
-            'building' => $purchaseData['building'],
+            'payment_method' => 2,
+            'postal_code' => $deliveryAddress['postal_code'],
+            'address' => $deliveryAddress['address'],
+            'building' => $deliveryAddress['building'],
         ]);
 
         $item->update([
@@ -138,7 +138,6 @@ class PurchaseController extends Controller
         ]);
 
         session()->forget('delivery_address');
-        session()->forget('purchase_data');
 
         return redirect('/');
     }

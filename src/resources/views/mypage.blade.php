@@ -12,7 +12,7 @@
         class="mypage__image"
         src="{{ asset('storage/' . $user->profile_image) }}">
     @else
-      <div class="mypage__image-preview"></div>
+      <div class="mypage__image-placeholder"></div>
     @endif
     <span class="mypage__menu-item">{{ $user->name }}</span>
     <a class="mypage__menu-link" href="/mypage/profile">プロフィールを編集</a>

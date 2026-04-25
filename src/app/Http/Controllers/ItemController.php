@@ -22,7 +22,7 @@ class ItemController extends Controller
             }
         } else {
             if (auth()->check()) {
-                $query = Item::where('user_id', '!=', auth()->id()); //ログイン済みならログインユーザーが出品した商品を除外
+                $query = Item::where('user_id', '!=', auth()->id())->with('categories'); //ログイン済みならログインユーザーが出品した商品を除外
             } else {
                 $query = Item::query()->with('categories'); //未ログインならすべて表示
             }

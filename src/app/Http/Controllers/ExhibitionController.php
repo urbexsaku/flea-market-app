@@ -16,13 +16,8 @@ class ExhibitionController extends Controller
     }
 
     public function store(ExhibitionRequest $request) {
-        $path = null;
-
-        if ($request->hasFile('image')){
-            $path = $request->file('image')->store('images', 'public');
-        }
-        
-    
+        $path = $request->file('image')->store('images', 'public');
+                
         $item = Item::create([
             'user_id' => auth()->id(),
             'name' => $request->name,

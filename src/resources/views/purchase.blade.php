@@ -87,9 +87,9 @@
     text.textContent = selected;
 
     if (select.value === '2') {
-      form.action ='/purchase/{{ $item->id }}/checkout';
+      form.action = '/purchase/{{ $item->id }}/checkout'; //クレジットカード払い選択の場合、checkout（Stripe）へ
     } else {
-      form.action = '/purchase/{{ $item->id }}';
+      form.action = '/purchase/{{ $item->id }}'; //コンビニ払い選択の場合
     }
   });
 </script>

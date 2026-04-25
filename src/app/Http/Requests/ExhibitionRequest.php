@@ -26,9 +26,10 @@ class ExhibitionRequest extends FormRequest
         return [
             'name' => ['required'],
             'description' => ['required', 'max:255'],
+            'image' => ['required'],
             'categories' => ['required'],
             'condition' => ['required'],
-            'price' => ['required', 'numeric', 'min:1'],
+            'price' => ['required', 'numeric', 'min:0'],
         ];
     }
 
@@ -38,6 +39,7 @@ class ExhibitionRequest extends FormRequest
             'name.required' => '商品名を入力してください',
             'description.required' => '商品説明を入力してください',
             'description.max' => '商品説明を255文字以下で入力してください',
+            'image.required' => '商品画像をアップロードしてください',
             'categories.required' => 'カテゴリーを選択してください',
             'condition.required' => '商品状態を選択してください',
             'price.required' => '価格を入力してください',
