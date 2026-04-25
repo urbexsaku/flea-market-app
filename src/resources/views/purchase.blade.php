@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-<form class="purchase" action="/purchase/{{ $item->id }}" method="post">
+<form id="purchaseForm" class="purchase" action="/purchase/{{ $item->id }}" method="post">
   @csrf
   <div class="purchase__content">
     <div class="purchase__main">
@@ -78,12 +78,19 @@
 </form>
 
 <script>
+  const form = document.getElementById('purchaseForm');
   const select = document.getElementById('payment');
   const text = document.getElementById('paymentText');
 
   select.addEventListener('change', () => {
     const selected = select.options[select.selectedIndex].text;
     text.textContent = selected;
+
+    if (select.value === '2') {
+      form.action ='/purchase/{{ $item->id }}/checkout';
+    } else {
+      form.action = '/purchase/{{ $item->id }}';
+    }
   });
 </script>
 @endsection

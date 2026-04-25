@@ -7,6 +7,8 @@ use App\Models\Item;
 use App\Models\Purchase;
 use App\Http\Requests\AddressRequest;
 use App\Http\Requests\PurchaseRequest;
+use Stripe\Stripe;
+use Stripe\Checkout\Session;
 
 class PurchaseController extends Controller
 {
@@ -54,6 +56,10 @@ class PurchaseController extends Controller
     public function store(PurchaseRequest $request, $item_id)
     {
         $item = Item::findOrFail($item_id);
+
+        if ($item->is_sold) {
+            return redirect('/');
+        }
             
         Purchase::create([
             'user_id' => auth()->id(),
@@ -69,6 +75,70 @@ class PurchaseController extends Controller
         ]);
 
         session()->forget('delivery_address');
+
+        return redirect('/');
+    }
+
+    public function checkout(PurchaseRequest $request, $item_id)
+    {
+        $item = Item::findOrFail($item_id);
+
+        session([
+            'purchase_data' => [
+                'payment_method' => $request->payment_method,
+                'postal_code' => $request->postal_code,
+                'address' => $request->address,
+                'building' => $request->building,
+            ],
+        ]);
+
+        Stripe::setApiKey(config('services.stripe.secret'));
+
+        $session = Session::create([
+            'payment_method_types' => ['card'],
+            'line_items' => [[
+                'price_data' => [
+                    'currency' => 'jpy',
+                    'product_data' => [
+                        'name' => $item->name,
+                    ],
+                    'unit_amount' => $item->price,
+                ],
+                'quantity' => 1
+            ]],
+            'mode' => 'payment',
+            'success_url' => url('/purchase/success?session_id={CHECKOUT_SESSION_ID}&item_id=' . $item->id),
+            'cancel_url' => url('/purchase/' . $item->id),
+        ]);
+
+        return redirect($session->url);
+    }
+
+    public function success(Request $request)
+    {
+        $item = Item::findOrFail($request->item_id);
+
+        if ($item->is_sold) {
+            return redirect('/');
+        }
+
+        $purchaseData = session('purchase_data');
+
+        Purchase::create([
+            'user_id' => auth()->id(),
+            'item_id' => $item->id,
+            'payment_method' => $purchaseData['payment_method'],
+            'postal_code' => $purchaseData['postal_code'],
+            'address' => $purchaseData['address'],
+            'building' => $purchaseData['building'],
+        ]);
+
+        $item->update([
+            'is_sold' => true,
+        ]);
+
+        session()->forget('delivery_address');
+        session()->forget('purchase_data');
 
         return redirect('/');
     }
