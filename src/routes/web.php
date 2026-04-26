@@ -24,6 +24,7 @@ use Illuminate\Http\Request;
 
 Route::get('/', [ItemController::class, 'index']);
 Route::get('/item/{item_id}', [ItemController::class, 'show']);
+
 Route::get('/email/verify', function () {
     return view('auth.verify-email');
 })->middleware('auth')->name('verification.notice'); //メール未認証ユーザーに認証案内画面を表示
@@ -33,22 +34,26 @@ Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $requ
 })->middleware(['auth', 'signed'])->name('verification.verify');
 Route::post('/email/verification-notification', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
-
     return back()->with('message', '認証メールを再送信しました');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/mypage', [MypageController::class, 'index']);
     Route::get('/mypage/profile', [ProfileController::class, 'edit']);
     Route::post('/mypage/profile', [ProfileController::class, 'update']);
+});
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/mypage', [MypageController::class, 'index']);
     Route::post('/like/{item_id}', [LikeController::class, 'toggle']);
     Route::post('/comment/{item_id}', [CommentController::class, 'store']);
+
     Route::get('/purchase/success', [PurchaseController::class, 'success']);
     Route::get('/purchase/{item_id}', [PurchaseController::class, 'index']);
     Route::post('/purchase/{item_id}', [PurchaseController::class, 'store']);
     Route::get('/purchase/address/{item_id}', [PurchaseController::class, 'edit']);
     Route::post('/purchase/address/{item_id}', [PurchaseController::class, 'update']);
     Route::post('/purchase/{item_id}/checkout', [PurchaseController::class, 'checkout']);
+
     Route::get('/sell', [ExhibitionController::class, 'index']);
     Route::post('/sell', [ExhibitionController::class, 'store']);
 });

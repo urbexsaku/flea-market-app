@@ -3,20 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ExhibitionRequest;
-use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Item;
 
 class ExhibitionController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         $categories = Category::all();
 
         return view ('exhibition', compact('categories'));
     }
 
-    public function store(ExhibitionRequest $request) {
-        $path = $request->file('image')->store('images', 'public');
+    public function store(ExhibitionRequest $request)
+    {
+        $path = $request->file('image')->store('images', 'public'); //画像の保存先指定
                 
         $item = Item::create([
             'user_id' => auth()->id(),
@@ -28,7 +29,7 @@ class ExhibitionController extends Controller
             'image' => $path,            
         ]);
 
-        $item->categories()->attach($request->categories);
+        $item->categories()->attach($request->categories); //中間テーブルにitemとcategoryのデータ保存
 
         return redirect ('/');
     }

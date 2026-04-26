@@ -1,0 +1,33 @@
+.verify {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.verify__content {
+  text-align: center;
+}
+
+.verify__message {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.verify__notice {
+  color: #28a745;
+  font-size: 15px;
+}
+
+.verify__resend {
+  margin-top: 30px;
+}
+
+.verify__resend-button {
+  border: none;
+  background-color: transparent;
+  text-decoration: none;
+  color: #0073CC;
+  font-size: 15px;
+  cursor: pointer;
+}
