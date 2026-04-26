@@ -16,6 +16,7 @@ cp .env.example .env
 ```
 
 4. .envに以下の環境変数を追加
+### DB設定
 ``` text
 DB_CONNECTION=mysql
 DB_HOST=mysql
@@ -23,6 +24,25 @@ DB_PORT=3306
 DB_DATABASE=laravel_db
 DB_USERNAME=laravel_user
 DB_PASSWORD=laravel_pass
+```
+### メール設定(MailHog)
+``` text
+MAIL_MAILER=smtp
+MAIL_HOST=mailhog
+MAIL_PORT=1025
+MAIL_USERNAME=null
+MAIL_PASSWORD=null
+MAIL_ENCRYPTION=null
+MAIL_FROM_ADDRESS=test@example.com
+MAIL_FROM_NAME="${APP_NAME}"
+```
+### Stripe設定
+StripeのAPIキーを取得し、.envに設定して下さい。
+
+https://dashboard.stripe.com/test/apikeys
+``` text
+STRIPE_KEY=取得した公開キー（pk_test_XXXXXXX）
+STRIPE_SECRET=取得したシークレットキー（sk_test_XXXXXXX）
 ```
 5. アプリケーションキーの作成
 ``` bash
@@ -50,7 +70,16 @@ php artisan db:seed
 
 ## URL
 - 開発環境：http://localhost/
-- phpMyAdmin:：http://localhost:8080/
+- phpMyAdmin：http://localhost:8080/
+- MailHog（メール認証確認）：http://localhost:8025/
+
+## Stripe決済
+
+カード支払いの確認にはStripeのテスト決済を使用しています。
+
+- テストカード番号：4242 4242 4242 4242
+- 有効期限：任意の未来の日付
+- セキュリティコード：任意の3桁
 
 ## テスト用アカウント
 
