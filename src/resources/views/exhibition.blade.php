@@ -93,7 +93,7 @@
         </div>
         <div class="sell-form__group-content">
           <div class="sell-form__input">
-            <input type="text" name="description">
+            <textarea type="text" name="description"></textarea>
           </div>
           <div class="sell-form__error">
             @error('description')

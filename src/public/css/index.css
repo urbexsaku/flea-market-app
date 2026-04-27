@@ -11,8 +11,8 @@
 
 .item-list__tab-list {
   display: flex;
-  gap: 30px;
-  padding: 0px 50px;
+  gap: 40px;
+  padding: 0px 70px;
 }
 
 .item-list__tab-item a {

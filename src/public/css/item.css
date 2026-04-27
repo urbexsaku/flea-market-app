@@ -15,7 +15,7 @@
 .item-detail__image,
 .item-detail__info {
   flex: 1; 
-  min-width: 0;
+  min-width: 0; /* 横幅均等に分ける*/
 }
 
 .item-detail__image {
@@ -106,24 +106,29 @@
 
 .item-detail__info-row {
   display: flex;
-  gap: 15px;
+  gap: 24px;
   margin-bottom: 16px;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .item-detail__label {
   margin-right: 40px;
+  width: 80px;
+  flex-shrink: 0; /* 幅が足りなくても縮まない */
 }
 
 .item-detail__category {
   display: flex;
-  gap: 10px;
+  flex-wrap: wrap;
+  gap: 10px 12px;
+  flex: 1; /* ラベル以外の横幅すべて使用 */
 }
 
 .item-detail__category-tag {
   background-color: #D9D9D9;
   border-radius: 30px;
   padding: 2px 20px;
+  white-space: nowrap; /* タグの改行禁止 */
 }
 
 .item-detail__comment-heading {

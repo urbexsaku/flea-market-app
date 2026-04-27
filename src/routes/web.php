@@ -30,19 +30,16 @@ Route::get('/email/verify', function () {
 })->middleware('auth')->name('verification.notice'); //メール未認証ユーザーに認証案内画面を表示
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill();
-    return redirect('/');
+    return redirect('/mypage/profile');
 })->middleware(['auth', 'signed'])->name('verification.verify');
 Route::post('/email/verification-notification', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
     return back()->with('message', '認証メールを再送信しました');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/mypage/profile', [ProfileController::class, 'edit']);
     Route::post('/mypage/profile', [ProfileController::class, 'update']);
-});
-
-Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/mypage', [MypageController::class, 'index']);
     Route::post('/like/{item_id}', [LikeController::class, 'toggle']);
     Route::post('/comment/{item_id}', [CommentController::class, 'store']);
