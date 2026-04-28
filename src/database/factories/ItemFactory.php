@@ -14,7 +14,13 @@ class ItemFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'user_id' => \App\Models\User::factory(),
+            'name' => $this->faker->word(),
+            'price' => $this->faker->numberBetween(100, 10000),
+            'description' => $this->faker->sentence(),
+            'condition' => 1,
+            'image' => 'images/test.jpg',
+            'is_sold' => false,
         ];
     }
 }
