@@ -16,6 +16,7 @@ class ItemFactory extends Factory
         return [
             'user_id' => \App\Models\User::factory(),
             'name' => $this->faker->word(),
+            'brand' => $this->faker->word(),
             'price' => $this->faker->numberBetween(100, 10000),
             'description' => $this->faker->sentence(),
             'condition' => 1,
