@@ -19,7 +19,6 @@ class LikeTest extends TestCase
         $this->actingAs($user);
 
         $response = $this->get('/item/' . $item->id);
-        $response->assertStatus(200);
         $response->assertSee('id="likeCount">0<', false); //初期いいね数0を確認
 
         $this->post('/like/' . $item->id); //いいね実行

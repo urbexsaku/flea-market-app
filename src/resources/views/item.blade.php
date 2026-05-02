@@ -39,7 +39,7 @@
 
         <div class="item-detail__action">
           <img src="{{ asset('images/speech-bubble.png') }}" class="item-detail__action-icon">
-          <span>{{ $item->comments->count() }}</span>
+          <span data-testid="comment-count-top">{{ $item->comments->count() }}</span>
         </div>
       </div>
 
@@ -70,7 +70,7 @@
       </div>
 
       <div class="item-detail__comment">
-        <h2 class="item-detail__comment-heading">コメント ({{ $item->comments->count() }})</h2>
+        <h2 class="item-detail__comment-heading" data-testid="comment-count-bottom">コメント ({{ $item->comments->count() }})</h2>
 
         @foreach ($item->comments as $comment)
         <div class="item-detail__comment-item">
