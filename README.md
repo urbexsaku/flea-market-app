@@ -15,6 +15,11 @@
 cp .env.example .env
 ```
 
+**Laravel環境構築**
+1. `docker-compose exec php bash`
+2. `composer require --dev laravel/dusk:^6.0`
+3. `php artisan dusk:install`
+
 4. .envに以下の環境変数を追加
 ### DB設定
 ``` text
