@@ -70,12 +70,14 @@ cp .env.dusk.example .env.dusk.local
 DB_CONNECTION=mysql
 DB_HOST=mysql
 DB_PORT=3306
-DB_DATABASE=laravel_db
+DB_DATABASE=laravel_dusk
 DB_USERNAME=laravel_user
 DB_PASSWORD=laravel_pass
 ```
-- APP_KEYは通常環境（.env）と同一の値を使用します
-
+- APP_KEY
+``` text
+APP_KEY=(.env の APP_KEY をコピー）
+```
 
 ## 使用技術(実行環境)
 - php 8.1
@@ -125,3 +127,7 @@ php artisan test
 ```bash
 php artisan dusk
 ```
+- Duskの初期インストールで生成される ExampleTest は使用しません。
+必要に応じて削除してください。
+```bash
+rm tests/Browser/ExampleTest.php

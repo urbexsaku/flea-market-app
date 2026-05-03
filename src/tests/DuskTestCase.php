@@ -39,7 +39,7 @@ abstract class DuskTestCase extends BaseTestCase
         ]);
 
         return RemoteWebDriver::create(
-            'http://flea-market-app-selenium-1:4444/wd/hub',
+            'http://selenium:4444/wd/hub',
             DesiredCapabilities::chrome()->setCapability(
                 ChromeOptions::CAPABILITY, $options
             )
