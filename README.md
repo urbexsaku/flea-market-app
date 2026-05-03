@@ -26,16 +26,8 @@ DB_USERNAME=laravel_user
 DB_PASSWORD=laravel_pass
 ```
 ### メール設定(MailHog)
-``` text
-MAIL_MAILER=smtp
-MAIL_HOST=mailhog
-MAIL_PORT=1025
-MAIL_USERNAME=null
-MAIL_PASSWORD=null
-MAIL_ENCRYPTION=null
-MAIL_FROM_ADDRESS=test@example.com
-MAIL_FROM_NAME="${APP_NAME}"
-```
+MailHogを使用するため追加設定は不要です。
+
 ### Stripe設定
 StripeのAPIキーを取得し、.envに設定して下さい。
 
@@ -71,10 +63,10 @@ php artisan dusk:install
 ```
 cp .env.dusk.example .env.dusk.local
 ```
-3. .env.dusk.local のAPP_URLを設定
-``` text
-APP_URL=http://nginx
-```
+3. .env.dusk.local のAPP_KEYを設定
+
+APP_KEYは通常環境（.env）と同一の値を使用します
+
 
 ## 使用技術(実行環境)
 - php 8.1
