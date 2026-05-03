@@ -63,9 +63,18 @@ php artisan dusk:install
 ```
 cp .env.dusk.example .env.dusk.local
 ```
-3. .env.dusk.local のAPP_KEYを設定
+3. .env.dusk.local に以下の環境変数を追加
 
-APP_KEYは通常環境（.env）と同一の値を使用します
+- DB設定
+``` text
+DB_CONNECTION=mysql
+DB_HOST=mysql
+DB_PORT=3306
+DB_DATABASE=laravel_db
+DB_USERNAME=laravel_user
+DB_PASSWORD=laravel_pass
+```
+- APP_KEYは通常環境（.env）と同一の値を使用します
 
 
 ## 使用技術(実行環境)
