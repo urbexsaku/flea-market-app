@@ -15,11 +15,6 @@
 cp .env.example .env
 ```
 
-**Laravel環境構築**
-1. `docker-compose exec php bash`
-2. `composer require --dev laravel/dusk:^6.0`
-3. `php artisan dusk:install`
-
 4. .envに以下の環境変数を追加
 ### DB設定
 ``` text
@@ -64,6 +59,23 @@ php artisan migrate
 php artisan db:seed
 ```
 
+**Laravel Dusk環境構築**
+1. Laravel Dusk をインストール
+```bash
+composer require --dev laravel/dusk
+```
+```bash
+php artisan dusk:install
+```
+2.  「.env.dusk.example」ファイルを 「.env.dusk.local」ファイルに命名を変更。または、新しく.env.dusk.localファイルを作成
+```
+cp .env.dusk.example .env.dusk.local
+```
+3. .env.dusk.local のAPP_URLを設定
+``` text
+APP_URL=http://nginx
+```
+
 ## 使用技術(実行環境)
 - php 8.1
 - Laravel 8.75
@@ -100,3 +112,15 @@ php artisan db:seed
 
 - すべて同一パスワードでログインできます。
 - 出品商品はランダムでユーザーに割り当てています。
+
+## テスト実行方法
+
+### PHPUnit（通常テスト）
+```bash
+php artisan test
+```
+
+### Laravel Dusk （ブラウザテスト）
+```bash
+php artisan dusk
+```
