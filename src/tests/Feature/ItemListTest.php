@@ -38,12 +38,15 @@ class ItemListTest extends TestCase
     public function test_own_items_are_not_displayed()
     {
         $user = User::factory()->create();
-    
+
         $ownItem = Item::factory()->create([
             'user_id' => $user->id,
+            'name' => '自分の商品',
         ]);
 
-        $otherItem = Item::factory()->create();
+        $otherItem = Item::factory()->create([
+            'name' => '他人の商品',
+        ]);
 
         $response = $this->actingAs($user)->get('/');
 
@@ -55,8 +58,12 @@ class ItemListTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $likedItem = Item::factory()->create();
-        $notLikedItem = Item::factory()->create();
+        $likedItem = Item::factory()->create([
+            'name' => 'いいね商品',
+        ]);
+        $notLikedItem = Item::factory()->create([
+            'name' => 'その他の商品',
+        ]);
 
         Like::factory()->create([
             'user_id'  => $user->id,
