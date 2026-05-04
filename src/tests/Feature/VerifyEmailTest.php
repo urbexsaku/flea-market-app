@@ -26,7 +26,7 @@ class VerifyEmailTest extends TestCase
 
         $user = User::where('email', 'test@example.com')->first();
 
-        Notification::assertSentTo( //登録ユーザーへ認証メールが送信されたかことを確認
+        Notification::assertSentTo( // 登録ユーザーへ認証メールが送信されたかことを確認
             $user,
             VerifyEmail::class
         );
@@ -34,9 +34,9 @@ class VerifyEmailTest extends TestCase
 
     public function test_verified_user_redirects_to_profile_page()
     {
-        $user = User::factory()->unverified()->create(); //未認証ユーザー作成
+        $user = User::factory()->unverified()->create(); // 未認証ユーザー作成
 
-        $verificationUrl = URL::temporarySignedRoute( //認証メールリンク作成
+        $verificationUrl = URL::temporarySignedRoute( // 認証メールリンク作成
             'verification.verify',
             now()->addMinutes(60),
             [
@@ -45,10 +45,10 @@ class VerifyEmailTest extends TestCase
             ]
         );
 
-        $response = $this->actingAs($user)->get($verificationUrl); //認証メールリンクアクセス
+        $response = $this->actingAs($user)->get($verificationUrl); // 認証メールリンクアクセス
 
-        $response->assertRedirect('/mypage/profile'); //リダイレクト確認
+        $response->assertRedirect('/mypage/profile'); // リダイレクト確認
 
-        $this->assertTrue($user->fresh()->hasVerifiedEmail()); //認証確認
+        $this->assertTrue($user->fresh()->hasVerifiedEmail()); // 認証確認
     } 
 }

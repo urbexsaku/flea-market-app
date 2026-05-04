@@ -20,33 +20,38 @@ class Item extends Model
         'is_sold',
     ];
 
-    public function getConditionTextAttribute() {
+    public function getConditionTextAttribute()
+    {
         return [
             1 => '良好',
             2 => '目立った傷や汚れなし',
             3 => 'やや傷や汚れあり',
-            4 => '状態が悪い'
+            4 => '状態が悪い',
         ][$this->condition];
     }
 
-    public function categories() {
+    public function categories()
+    {
         return $this->belongsToMany(
             Category::class,
             'category_item',
             'item_id',
-            'category_id'
+            'category_id',
         );
     }
 
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 
-    public function purchases() {
-        return $this->hasMany(Purchase::class);
+    public function purchase()
+    {
+        return $this->hasOne(Purchase::class);
     }
 
-    public function likes() {
+    public function likes()
+    {
         return $this->hasMany(Like::class);
     }
 
@@ -56,20 +61,20 @@ class Item extends Model
             return false;
         }
 
-        return $this->likes() //いいね一覧
-        ->where('user_id', $user->id) //ユーザーがいいねしているか
-        ->exists(); //1件でもあればtrue
+        return $this->likes() // いいね一覧
+        ->where('user_id', $user->id) // ユーザーがいいねしているか
+        ->exists(); // 1件でもあればtrue
     }
 
-    public function comments() {
+    public function comments()
+    {
         return $this->hasMany(Comment::class);
     }
 
     public function scopeKeywordSearch($query, $keyword)
     {
-        if (!empty($keyword)) {
-            $query->where('name', 'like', '%' . $keyword . '%'); //商品名で部分一致検索
-            }
-        return $query;
+        return $query->when($keyword, function ($query, $keyword) {
+            $query->where('name', 'like', "%{$keyword}%");
+        });
     }
 }

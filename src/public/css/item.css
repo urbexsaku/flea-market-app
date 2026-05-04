@@ -15,7 +15,7 @@
 .item-detail__image,
 .item-detail__info {
   flex: 1; 
-  min-width: 0; /* 横幅均等に分ける*/
+  min-width: 0; /* 横幅均等に分ける */
 }
 
 .item-detail__image {
@@ -114,6 +114,7 @@
 .item-detail__label {
   margin-right: 40px;
   width: 80px;
+  font-weight: bold;
   flex-shrink: 0; /* 幅が足りなくても縮まない */
 }
 

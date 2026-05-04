@@ -20,7 +20,7 @@ class PaymentMethodTest extends DuskTestCase
         $this->browse(function (Browser $browser) use ($user, $item){
             $browser->loginAs($user)
                 ->visit('/purchase/' . $item->id)
-                ->waitFor('#payment', 5) //id=paymentの要素が表示されるまで最大5秒待つ
+                ->waitFor('#payment', 5) // id=paymentの要素が表示されるまで最大5秒待つ
                 
                 ->select('#payment', '1')
                 ->pause(500)

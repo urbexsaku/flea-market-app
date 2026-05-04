@@ -30,7 +30,7 @@
         <div class="sell-form__categories-items">
           @foreach ($categories as $category)
           <label class="sell-form__categories-item">
-            <input type="checkbox" name="categories[]" value="{{ $category->id }}" class="sell-form__category-input">
+            <input type="checkbox" name="categories[]" value="{{ $category->id }}" class="sell-form__category-input" {{ in_array($category->id, old('categories', [])) ? 'checked' : '' }}>
             <span class="sell-form__category-label">{{ $category->content }}</span>
           </label>
           @endforeach
@@ -45,10 +45,10 @@
         <div class="sell-form__condition-title">商品の状態</div>
         <select name="condition" class="sell-form__condition-select">
           <option value="">選択してください</option>
-          <option value="1">良好</option>
-          <option value="2">目立った傷や汚れなし</option>
-          <option value="3">やや傷や汚れあり</option>
-          <option value="4">状態が悪い</option>
+          <option value="1" {{ old('condition') == 1 ? 'selected' : '' }}>良好</option>
+          <option value="2" {{ old('condition') == 2 ? 'selected' : '' }}>目立った傷や汚れなし</option>
+          <option value="3" {{ old('condition') == 3 ? 'selected' : '' }}>やや傷や汚れあり</option>
+          <option value="4" {{ old('condition') == 4 ? 'selected' : '' }}>状態が悪い</option>
         </select>
         <div class="sell-form__error">
           @error('condition')
@@ -66,7 +66,7 @@
         </div>
         <div class="sell-form__group-content">
           <div class="sell-form__input">
-            <input type="text" name="name">
+            <input type="text" name="name" value="{{ old('name') }}">
           </div>
           <div class="sell-form__error">
             @error('name')
@@ -82,7 +82,7 @@
         </div>
         <div class="sell-form__group-content">
           <div class="sell-form__input">
-            <input type="text" name="brand">
+            <input type="text" name="brand" value="{{ old('brand') }}">
           </div>
         </div>
       </div>
@@ -93,7 +93,7 @@
         </div>
         <div class="sell-form__group-content">
           <div class="sell-form__input">
-            <textarea type="text" name="description"></textarea>
+            <textarea name="description">{{ old('description') }}</textarea>
           </div>
           <div class="sell-form__error">
             @error('description')
@@ -110,7 +110,7 @@
         <div class="sell-form__group-content">
           <div class="sell-form__input sell-form__input--price">
             <span class="sell-form__price-mark">￥</span>
-            <input type="text" name="price">
+            <input type="text" name="price" value="{{ old('price') }}">
           </div>
           <div class="sell-form__error">
             @error('price')

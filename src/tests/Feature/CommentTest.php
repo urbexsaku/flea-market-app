@@ -45,9 +45,9 @@ class CommentTest extends TestCase
             'content' => 'テストコメント'
         ]);
 
-        $response->assertRedirect('/login'); //ログイン画面へリダイレクトを確認
+        $response->assertRedirect('/login'); // ログイン画面へリダイレクトを確認
 
-        $this->assertDatabaseMissing('comments', [ //DB未登録を確認
+        $this->assertDatabaseMissing('comments', [ // DB未登録を確認
             'content' => 'テストコメント',
         ]);
     }

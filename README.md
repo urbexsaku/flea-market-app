@@ -1,23 +1,40 @@
-# フリマアプリ
+# coachtechフリマ
+
+## 概要
+Laravelを用いて開発したフリマアプリです。  
+会員登録、商品出品、購入、コメント、Stripe決済機能を実装しています。
 
 ## 環境構築
-**Dockerビルド**
-1. `git clone git@github.com:urbexsaku/flea-market-app.git`
-2. DockerDesktopアプリを立ち上げる
-3. `docker-compose up -d --build`
+### Dockerビルド
+
+1. リポジトリをクローン
+``` bash
+git clone git@github.com:urbexsaku/flea-market-app.git
+```
+2. Docker Desktopを起動
+3. コンテナを作成・起動
+``` bash
+docker-compose up -d --build
+```
 
 
-**Laravel環境構築**
-1. `docker-compose exec php bash`
-2. `composer install`
-3. 「.env.example」ファイルを 「.env」ファイルに命名を変更。または、新しく.envファイルを作成
+### Laravel環境構築
+1. PHPコンテナへ入る
+``` bash
+docker-compose exec php bash
+```
+2. パッケージインストール
+``` bash
+composer install
+```
+3. .envファイルを作成
 ```
 cp .env.example .env
 ```
 
-4. .envに以下の環境変数を追加
-### DB設定
-``` text
+4. .envに以下を設定
+- DB設定
+``` env
 DB_CONNECTION=mysql
 DB_HOST=mysql
 DB_PORT=3306
@@ -25,17 +42,18 @@ DB_DATABASE=laravel_db
 DB_USERNAME=laravel_user
 DB_PASSWORD=laravel_pass
 ```
-### メール設定(MailHog)
-MailHogを使用するため追加設定は不要です。
 
-### Stripe設定
-StripeのAPIキーを取得し、.envに設定して下さい。
+- Stripe設定
+以下URLからStripeのAPIキーを取得し、.envに設定して下さい。
 
 https://dashboard.stripe.com/test/apikeys
 ``` text
 STRIPE_KEY=取得した公開キー（pk_test_XXXXXXX）
 STRIPE_SECRET=取得したシークレットキー（sk_test_XXXXXXX）
 ```
+- メール設定(MailHog)
+MailHogを使用するため追加設定は不要です。
+
 5. アプリケーションキーの作成
 ``` bash
 php artisan key:generate
@@ -51,22 +69,20 @@ php artisan migrate
 php artisan db:seed
 ```
 
-**Laravel Dusk環境構築**
+### Laravel Dusk環境構築
 1. Laravel Dusk をインストール
 ```bash
 composer require --dev laravel/dusk
-```
-```bash
 php artisan dusk:install
 ```
-2.  「.env.dusk.example」ファイルを 「.env.dusk.local」ファイルに命名を変更。または、新しく.env.dusk.localファイルを作成
+2.  .env.dusk.localファイルを作成
 ```
 cp .env.dusk.example .env.dusk.local
 ```
-3. .env.dusk.local に以下の環境変数を追加
+3. .env.dusk.local に以下を設定
 
 - DB設定
-``` text
+``` env
 DB_CONNECTION=mysql
 DB_HOST=mysql
 DB_PORT=3306
@@ -75,30 +91,28 @@ DB_USERNAME=laravel_user
 DB_PASSWORD=laravel_pass
 ```
 - APP_KEY
-``` text
-APP_KEY=(.env の APP_KEY をコピー）
+``` env
+APP_KEY=.env の APP_KEY をここへコピー
 ```
 
 ## 使用技術(実行環境)
-- php 8.1
+- PHP 8.1
 - Laravel 8.75
-- mysql 8.0.26
-- nginx 1.21.1
-
-## ER図
-![ER図](erd.drawio.png)
+- MySQL 8.0.26
+- Nginx 1.21.1
 
 ## URL
 - 開発環境：http://localhost/
 - phpMyAdmin：http://localhost:8080/
 - MailHog（メール認証確認）：http://localhost:8025/
 
+
 ## Stripe決済
 
 カード支払いの確認にはStripeのテスト決済を使用しています。
 
 - テストカード番号：4242 4242 4242 4242
-- 有効期限：任意の未来の日付
+- 有効期限：任意の未来日付
 - セキュリティコード：任意の3桁
 
 ## テスト用アカウント
@@ -118,16 +132,25 @@ APP_KEY=(.env の APP_KEY をコピー）
 
 ## テスト実行方法
 
-### PHPUnit（通常テスト）
+### PHPUnit
 ```bash
 php artisan test
 ```
 
-### Laravel Dusk （ブラウザテスト）
+### Laravel Dusk
 ```bash
 php artisan dusk
 ```
-- Duskの初期インストールで生成される ExampleTest は使用しません。
-必要に応じて削除してください。
+- 初期生成される  `ExampleTest.php`は本アプリでは使用しません。必要に応じて削除してください。
 ```bash
 rm tests/Browser/ExampleTest.php
+```
+
+## ER図
+![ER図](erd.drawio.png)
+
+## 追加実装機能
+以下は、開発要件に記載のない追加実装機能です。
+
+- 売却済み商品の「購入はこちら」ボタンを「売り切れ」と表示し、購入画面へ遷移できないように制御
+- メール認証ページで認証メール再送後、「認証メールを再送信しました」とメッセージを表示

@@ -40,11 +40,11 @@ class ItemDetailTest extends TestCase
         $response->assertSee($item->brand);
         $response->assertSee(number_format($item->price));
         $response->assertSee($item->likes->count());
-        $response->assertSee('data-testid="comment-count-top">' . $item->comments->count() . '<', false); //ボタン下のコメント数確認 HTMLとして比較 
+        $response->assertSee('data-testid="comment-count-top">' . $item->comments->count() . '<', false); // ボタン下のコメント数確認 HTMLとして比較 
         $response->assertSee($category->content);
         $response->assertSee($item->description);
         $response->assertSee($item->condition_text);
-        $response->assertSee('コメント (' . $item->comments()->count() .')'); //コメント欄のコメント数確認
+        $response->assertSee('コメント (' . $item->comments()->count() .')'); // コメント欄のコメント数確認
         $response->assertSee($comment->user->name);
         $response->assertSee($comment->content);
     }

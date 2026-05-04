@@ -152,5 +152,4 @@ class ItemListTest extends TestCase
         $response->assertSee($matchedItem->name);
         $response->assertDontSee($unmatchedItem->name);
     }
-
 }

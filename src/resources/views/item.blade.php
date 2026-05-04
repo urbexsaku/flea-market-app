@@ -27,7 +27,7 @@
             <img
               id="heart"
               src="{{ $item->isLikedBy(auth()->user()) ? asset('images/heart-logo-pink.png') : asset('images/heart-logo-default.png') }}"
-              class="item-detail__action-icon"> <!--ユーザーがいいねしていればピンク、していなければ白を表示-->
+              class="item-detail__action-icon"> <!-- ユーザーがいいねしていればピンク、していなければ白を表示 -->
           </button>
           @else
           <a href="/login">
@@ -108,13 +108,13 @@
 </div>
 
 <script>
-  const button = document.getElementById('likeButton'); //id=likeButtonの要素取得
-  const heart = document.getElementById('heart'); //id=heartの要素取得
-  const count = document.getElementById('likeCount'); //id=likeCountの要素取得
+  const button = document.getElementById('likeButton'); // id=likeButtonの要素取得
+  const heart = document.getElementById('heart'); // id=heartの要素取得
+  const count = document.getElementById('likeCount'); // id=likeCountの要素取得
 
   if (button) {
-    button.addEventListener('click', async () => { //likeButtonクリック時に実行
-      const itemId = button.dataset.itemId; //data-item-idからitem id取得
+    button.addEventListener('click', async () => { // likeButtonクリック時に実行
+      const itemId = button.dataset.itemId; // data-item-idからitem id取得
 
       const response = await fetch(`/like/${itemId}`, {
         method: 'POST',
@@ -127,7 +127,7 @@
 
       const data = await response.json();
 
-      if (data.liked) { //LikeControllerから返ってきたlikedがtrueなら
+      if (data.liked) { // LikeControllerから返ってきたlikedがtrueなら
         heart.src = "{{ asset('images/heart-logo-pink.png') }}";
       } else {
         heart.src = "{{ asset('images/heart-logo-default.png') }}";

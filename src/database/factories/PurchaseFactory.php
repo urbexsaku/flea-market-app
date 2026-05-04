@@ -16,7 +16,7 @@ class PurchaseFactory extends Factory
         return [
             'user_id' => \App\Models\User::factory(),
             'item_id' => \App\Models\Item::factory(),
-            'payment_method' => '1',
+            'payment_method' => 1,
             'postal_code' => $this->faker->postcode(),
             'address' => $this->faker->address(),
             'building' => $this->faker->secondaryAddress(),

@@ -12,12 +12,12 @@ class ExhibitionController extends Controller
     {
         $categories = Category::all();
 
-        return view ('exhibition', compact('categories'));
+        return view('exhibition', compact('categories'));
     }
 
     public function store(ExhibitionRequest $request)
     {
-        $path = $request->file('image')->store('images', 'public'); //画像の保存先指定
+        $path = $request->file('image')->store('images', 'public'); // 画像をstorage/app/public/imagesに保存
                 
         $item = Item::create([
             'user_id' => auth()->id(),
@@ -29,8 +29,8 @@ class ExhibitionController extends Controller
             'image' => $path,            
         ]);
 
-        $item->categories()->attach($request->categories); //中間テーブルにitemとcategoryのデータ保存
+        $item->categories()->attach($request->categories); // 中間テーブルにitemとcategoryのデータ保存
 
-        return redirect ('/');
+        return redirect('/');
     }
 }

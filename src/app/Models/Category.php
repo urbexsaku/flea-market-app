@@ -9,12 +9,13 @@ class Category extends Model
 {
     use HasFactory;
 
-    public function items() {
+    public function items()
+    {
         return $this->belongsToMany(
             Item::class,
             'category_item',
             'category_id',
-            'item_id'
+            'item_id',
         );
     }
 }

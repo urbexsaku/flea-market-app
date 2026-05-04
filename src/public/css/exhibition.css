@@ -76,6 +76,7 @@
   border: 1px solid #FF5555;
   border-radius: 30px;
   padding: 2px 20px;
+  cursor: pointer;
 }
 
 .sell-form__category-input:checked + .sell-form__category-label {

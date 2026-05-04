@@ -26,9 +26,9 @@ class PurchaseTest extends TestCase
             'building' => 'テストビル101',
         ]);
 
-        $response->assertStatus(302); //リダイレクト確認
+        $response->assertStatus(302); // リダイレクト確認
 
-        $this->assertDatabaseHas('purchases', [ //DB保存確認
+        $this->assertDatabaseHas('purchases', [ // DB保存確認
             'user_id' => $user->id,
             'item_id' => $item->id,
         ]);

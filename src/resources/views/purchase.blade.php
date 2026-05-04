@@ -24,8 +24,8 @@
         <div class="purchase-section__payment-select">
           <select name="payment_method" id="payment">
             <option value="">選択してください</option>
-            <option value="1">コンビニ支払い</option>
-            <option value="2">カード支払い</option>
+            <option value="1" {{ old('payment_method') == 1 ? 'selected' : '' }}>コンビニ支払い</option>
+            <option value="2" {{ old('payment_method') == 2 ? 'selected' : '' }}>カード支払い</option>
           </select>
         </div>
         <div class="form__error">
@@ -82,14 +82,18 @@
   const select = document.getElementById('payment');
   const text = document.getElementById('paymentText');
 
+  if (select.value) {
+    text.textContent = select.options[select.selectedIndex].text;
+  }
+
   select.addEventListener('change', () => {
     const selected = select.options[select.selectedIndex].text;
     text.textContent = selected;
 
     if (select.value === '2') {
-      form.action = '/purchase/{{ $item->id }}/checkout'; //クレジットカード払い選択の場合、checkout（Stripe）へ
+      form.action = '/purchase/{{ $item->id }}/checkout'; // カード払い選択の場合、checkout（Stripe）へ
     } else {
-      form.action = '/purchase/{{ $item->id }}'; //コンビニ払い選択の場合
+      form.action = '/purchase/{{ $item->id }}'; // コンビニ払い選択の場合
     }
   });
 </script>
