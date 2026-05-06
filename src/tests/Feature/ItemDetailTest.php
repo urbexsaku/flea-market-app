@@ -16,7 +16,9 @@ class ItemDetailTest extends TestCase
 
     public function test_item_details_are_displayed()
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create([
+            'profile_image' => 'images/test.jpg',
+        ]);
         $item = Item::factory()->create();
         $category = Category::factory()->create();
         $item->categories()->attach($category->id);
@@ -32,20 +34,45 @@ class ItemDetailTest extends TestCase
             'content' => 'コメントテスト',
         ]);
 
-
+        // 1. 商品詳細ページを開く
         $response = $this->get('/item/' . $item->id);
+        $response->assertStatus(200);
 
+        // 商品画像表示確認
         $response->assertSee('storage/' . $item->image);
+
+        // 商品名表示確認
         $response->assertSee($item->name);
+
+        // ブランド名表示確認
         $response->assertSee($item->brand);
+
+        // 価格表示確認
         $response->assertSee(number_format($item->price));
+
+        // いいね数表示確認
         $response->assertSee($item->likes->count());
-        $response->assertSee('data-testid="comment-count-top">' . $item->comments->count() . '<', false); // ボタン下のコメント数確認 HTMLとして比較 
-        $response->assertSee($category->content);
+
+        // コメント数表示（ボタン下）確認
+        $response->assertSee('data-testid="comment-count-top">' . $item->comments->count() . '<', false);
+
+        // 商品説明表示確認
         $response->assertSee($item->description);
+
+        // カテゴリ表示確認
+        $response->assertSee($category->content);
+
+        // 商品の状態表示確認
         $response->assertSee($item->condition_text);
-        $response->assertSee('コメント (' . $item->comments()->count() .')'); // コメント欄のコメント数確認
+
+        // コメント欄のコメント数表示確認
+        $response->assertSee('コメント (' . $item->comments()->count() .')');
+
+        // コメントしたユーザー情報（ユーザー名と画像）表示確認
         $response->assertSee($comment->user->name);
+        $response->assertSee('storage/' . $comment->user->profile_image);
+
+        // コメント内容表示確認
         $response->assertSee($comment->content);
     }
 
@@ -62,8 +89,11 @@ class ItemDetailTest extends TestCase
             $category2->id,
         ]);
 
+        // 1. 商品詳細ページを開く
         $response = $this->get('/item/' . $item->id);
+        $response->assertStatus(200);
 
+        // 複数選択されたカテゴリ表示を確認
         $response->assertSee($category1->content);
         $response->assertSee($category2->content);
     }

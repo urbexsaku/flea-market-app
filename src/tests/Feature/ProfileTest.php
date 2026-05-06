@@ -22,22 +22,33 @@ class ProfileTest extends TestCase
             'user_id' => $user->id,
         ]);
 
-        $purchasedItem = Item::factory()->create();
+        $purchasedItem = Item::factory()->create([
+            'is_sold' => true,
+        ]);
 
         Purchase::factory()->create([
             'user_id' => $user->id,
             'item_id' => $purchasedItem->id,
         ]);
 
+        // 1. ユーザーにログインする
         $this->actingAs($user);
 
+        // 2. プロフィールページを開く
         $response = $this->get('/mypage');
+        $response->assertStatus(200);
+
+        // プロフィール画像表示確認
         $response->assertSee('/storage/' . $user->profile_image);
+
+        // ユーザー名表示確認
         $response->assertSee($user->name);
 
+        // 出品した商品一覧表示確認
         $response = $this->get('/mypage?page=sell');
         $response->assertSee($sellingItem->name);
 
+        // 購入した商品一覧表示確認
         $response = $this->get('/mypage?page=buy');
         $response->assertSee($purchasedItem->name);
     }
@@ -51,10 +62,23 @@ class ProfileTest extends TestCase
             'building' => 'テストビル101',
         ]);
 
-        $response = $this->actingAs($user)->get('/mypage/profile');
+        // 1. ユーザーにログインする
+        $this->actingAs($user);
+
+        // 2. プロフィール編集ページを開く
+        $response = $this->get('/mypage/profile');
+        $response->assertStatus(200);
+
+        // プロフィール画像（初期値）表示確認
         $response->assertSee('/storage/' . $user->profile_image);
+
+        // ユーザー名（初期値）表示確認
         $response->assertSee($user->name);
+
+        // 郵便番号（初期値）表示確認
         $response->assertSee($user->postal_code);
+
+        // 住所（初期値）表示確認
         $response->assertSee($user->address);
     }
 }
