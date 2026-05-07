@@ -79,10 +79,14 @@ class PurchaseController extends Controller
             return redirect('/');
         }
 
+        session([
+            'payment_method' => $request->payment_method,
+        ]);
+
         Stripe::setApiKey(config('services.stripe.secret')); // Stripe認証
 
         $session = Session::create([ // 決済セッション作成
-            'payment_method_types' => ['card'],
+            'payment_method_types' => ['card', 'konbini'],
             'line_items' => [[
                 'price_data' => [
                     'currency' => 'jpy',
@@ -115,7 +119,7 @@ class PurchaseController extends Controller
         Purchase::create([
             'user_id' => auth()->id(),
             'item_id' => $item->id,
-            'payment_method' => 2, // 2=カード支払い
+            'payment_method' => session('payment_method'),
             'postal_code' => $deliveryAddress['postal_code'],
             'address' => $deliveryAddress['address'],
             'building' => $deliveryAddress['building'],
@@ -126,6 +130,7 @@ class PurchaseController extends Controller
         ]);
 
         session()->forget('delivery_address'); // 配送先セッション削除
+        session()->forget('payment_method'); // 支払い方法セッション削除
 
         return redirect('/');
     }

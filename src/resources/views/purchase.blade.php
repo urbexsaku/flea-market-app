@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-<form id="purchaseForm" class="purchase" action="/purchase/{{ $item->id }}" method="post">
+<form id="purchaseForm" class="purchase" action="/purchase/{{ $item->id }}/checkout" method="post">
   @csrf
   <div class="purchase__content">
     <div class="purchase__main">
@@ -78,7 +78,6 @@
 </form>
 
 <script>
-  const form = document.getElementById('purchaseForm');
   const select = document.getElementById('payment');
   const text = document.getElementById('paymentText');
 
@@ -87,14 +86,7 @@
   }
 
   select.addEventListener('change', () => {
-    const selected = select.options[select.selectedIndex].text;
-    text.textContent = selected;
-
-    if (select.value === '2') {
-      form.action = '/purchase/{{ $item->id }}/checkout'; // カード払い選択の場合、checkout（Stripe）へ
-    } else {
-      form.action = '/purchase/{{ $item->id }}'; // コンビニ払い選択の場合
-    }
+    text.textContent = select.options[select.selectedIndex].text;
   });
 </script>
 @endsection
