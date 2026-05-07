@@ -62,7 +62,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/purchase/success', [PurchaseController::class, 'success']);
     Route::get('/purchase/address/{item_id}', [PurchaseController::class, 'edit']);
     Route::post('/purchase/address/{item_id}', [PurchaseController::class, 'update']);
-    Route::post('/purchase/{item_id}/checkout', [PurchaseController::class, 'checkout']);
     Route::get('/purchase/{item_id}', [PurchaseController::class, 'index']);
     Route::post('/purchase/{item_id}', [PurchaseController::class, 'store']);
 

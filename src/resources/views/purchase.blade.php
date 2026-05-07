@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-<form id="purchaseForm" class="purchase" action="/purchase/{{ $item->id }}/checkout" method="post">
+<form id="purchaseForm" class="purchase" action="/purchase/{{ $item->id }}" method="post">
   @csrf
   <div class="purchase__content">
     <div class="purchase__main">

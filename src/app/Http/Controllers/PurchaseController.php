@@ -52,32 +52,6 @@ class PurchaseController extends Controller
         if ($item->is_sold) {
             return redirect('/');
         }
-            
-        Purchase::create([
-            'user_id' => auth()->id(),
-            'item_id' => $item_id,
-            'payment_method' => $request->payment_method,
-            'postal_code' => $request->postal_code,
-            'address' => $request->address,
-            'building' => $request->building,
-        ]);
-
-        $item->update([
-            'is_sold' => true,
-        ]);
-
-        session()->forget('delivery_address'); // 配送先セッション削除
-
-        return redirect('/');
-    }
-
-    public function checkout(PurchaseRequest $request, $item_id)
-    {
-        $item = Item::findOrFail($item_id);
-
-        if ($item->is_sold) {
-            return redirect('/');
-        }
 
         session([
             'payment_method' => $request->payment_method,
@@ -129,8 +103,10 @@ class PurchaseController extends Controller
             'is_sold' => true,
         ]);
 
-        session()->forget('delivery_address'); // 配送先セッション削除
-        session()->forget('payment_method'); // 支払い方法セッション削除
+        session()->forget([
+            'delivery_address',
+            'payment_method',
+        ]);
 
         return redirect('/');
     }
