@@ -113,7 +113,9 @@ class ItemListTest extends TestCase
     public function test_guest_cannot_see_items_in_mylist()
     {
         $user = User::factory()->create();
-        $item = Item::factory()->create();
+        $item = Item::factory()->create([
+            'name' => 'テスト商品',
+        ]);
 
         Like::factory()->create([
             'user_id'  => $user->id,
