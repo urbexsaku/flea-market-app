@@ -43,5 +43,4 @@
     <a class="auth-form__link" href="/register">会員登録はこちら</a>
   </form>
 </div>
-
 @endsection

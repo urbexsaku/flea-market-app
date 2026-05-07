@@ -14,7 +14,7 @@
 
 .item-detail__image,
 .item-detail__info {
-  flex: 1; 
+  flex: 1;
   min-width: 0; /* 横幅均等に分ける */
 }
 
@@ -23,7 +23,7 @@
   justify-content: center;
 }
 
-.item-detail__image img{
+.item-detail__image img {
   width: 80%;
   height: auto;
   object-fit: contain;
@@ -161,7 +161,7 @@
   object-fit: cover;
   display: block;
 }
-    
+
 .item-detail__comment-user-icon--default {
   background-color: #D9D9D9;
 }

@@ -18,7 +18,7 @@
       <div
         class="profile-form__image-placeholder"
         id="imagePlaceholder"
-        style="{{ $user->profile_image ? 'display:none' : 'display:block' }}"></div>
+        style="{{ $user->profile_image ? 'display:none' : 'display:block;' }}"></div>
 
       <div class="profile-form__image-control">
         <label class="profile-form__image-button" for="imageInput">画像を選択する</label>

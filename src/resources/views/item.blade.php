@@ -60,7 +60,7 @@
         <div class="item-detail__label">カテゴリー</div>
         <div class="item-detail__category">
           @foreach ($item->categories as $category)
-          <span class="item-detail__category-tag"> {{ $category->content }}</span>
+          <span class="item-detail__category-tag">{{ $category->content }}</span>
           @endforeach
         </div>
       </div>

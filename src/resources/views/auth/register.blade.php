@@ -75,5 +75,4 @@
     <a class="auth-form__link" href="/login">ログインはこちら</a>
   </form>
 </div>
-
 @endsection

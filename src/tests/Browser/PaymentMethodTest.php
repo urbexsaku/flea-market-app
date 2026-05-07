@@ -17,14 +17,14 @@ class PaymentMethodTest extends DuskTestCase
         $user = User::factory()->create();
         $item = Item::factory()->create();
 
-        $this->browse(function (Browser $browser) use ($user, $item){
+        $this->browse(function (Browser $browser) use ($user, $item) {
             $browser->loginAs($user)
                 ->visit('/purchase/' . $item->id)
-                ->waitFor('#payment', 5) // id=paymentの要素が表示されるまで最大5秒待つ
+                ->waitFor('#payment', 5)
                 
                 ->select('#payment', '1')
                 ->pause(500)
                 ->assertSeeIn('#paymentText', 'コンビニ支払い');
         });
-     }
+    }
 }

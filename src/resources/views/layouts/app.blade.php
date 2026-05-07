@@ -12,7 +12,6 @@
 </head>
 
 <body>
-
   <header class="header">
     <div class="header__inner">
       <div class="header__left">
@@ -52,7 +51,5 @@
   <main>
     @yield('content')
   </main>
-
 </body>
-
 </html>

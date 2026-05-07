@@ -12,7 +12,7 @@
     <div class="sell-form__image">
       <h2 class="sell-form__image-heading">商品画像</h2>
       <div class="sell-form__image-area">
-        <img id="imagePreview" class="sell-form__image-preview" src="" style="display: none;">
+        <img id="imagePreview" class="sell-form__image-preview" src="" style="display:none;">
         <label class="sell-form__image-button" for="imageInput">画像を選択する</label>
         <input type="file" name="image" id="imageInput" accept="image/*" hidden>
       </div>

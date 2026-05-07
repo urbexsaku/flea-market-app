@@ -28,7 +28,6 @@
         </li>
       </ul>
     </nav>
-    
 
     <div class="mypage__item-list">
       @foreach ($items as $item)
