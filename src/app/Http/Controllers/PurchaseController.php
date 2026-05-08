@@ -59,12 +59,19 @@ class PurchaseController extends Controller
             'payment_method' => $request->payment_method,
         ]);
 
+        // 支払い方法に応じたStripe決済種別設定
+        if ($request->payment_method === '2') {
+            $paymentMethodTypes = ['card'];
+        } else {
+            $paymentMethodTypes = ['konbini'];
+        }
+
         // Stripe認証
         Stripe::setApiKey(config('services.stripe.secret'));
 
         // 決済セッション作成
         $session = Session::create([ 
-            'payment_method_types' => ['card', 'konbini'],
+            'payment_method_types' => $paymentMethodTypes,
             'line_items' => [[
                 'price_data' => [
                     'currency' => 'jpy',
@@ -95,7 +102,7 @@ class PurchaseController extends Controller
         $deliveryAddress = $this->getDeliveryAddress($user);
 
         Purchase::create([
-            'user_id' => auth()->id(),
+            'user_id' => $user->id,
             'item_id' => $item->id,
             'payment_method' => session('payment_method'),
             'postal_code' => $deliveryAddress['postal_code'],
