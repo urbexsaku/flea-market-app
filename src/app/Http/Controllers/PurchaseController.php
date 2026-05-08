@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Item;
 use App\Models\Purchase;
 use App\Http\Requests\AddressRequest;
@@ -51,39 +50,28 @@ class PurchaseController extends Controller
         $item = Item::findOrFail($item_id);
         $user = auth()->user();
 
+        // 商品が購入済みの場合、商品一覧へリダイレクト
         if ($item->is_sold) {
             return redirect('/');
         }
 
-        session([
+        $deliveryAddress = $this->getDeliveryAddress($user);
+
+        // 購入情報保存
+        Purchase::create([
+            'user_id' => $user->id,
+            'item_id' => $item->id,
             'payment_method' => $request->payment_method,
+            'postal_code' => $deliveryAddress['postal_code'],
+            'address' => $deliveryAddress['address'],
+            'building' => $deliveryAddress['building'],
         ]);
 
-        // PHPUnit用
-        if (app()->environment('testing')) {
+        $item->update([
+            'is_sold' => true,
+        ]);
 
-            $deliveryAddress = $this->getDeliveryAddress($user);
-
-            Purchase::create([
-                'user_id' => auth()->id(),
-                'item_id' => $item->id,
-                'payment_method' => session('payment_method'),
-                'postal_code' => $deliveryAddress['postal_code'],
-                'address' => $deliveryAddress['address'],
-                'building' => $deliveryAddress['building'],
-            ]);
-
-            $item->update([
-                'is_sold' => true,
-            ]);
-
-            session()->forget([
-                'delivery_address',
-                'payment_method',
-            ]);
-
-            return redirect('/');
-        }
+        session()->forget('delivery_address');
 
         // Stripe認証
         Stripe::setApiKey(config('services.stripe.secret'));
@@ -102,43 +90,11 @@ class PurchaseController extends Controller
                 'quantity' => 1,
             ]],
             'mode' => 'payment',
-            'success_url' => url('/purchase/success?session_id={CHECKOUT_SESSION_ID}&item_id=' . $item->id),
+            'success_url' => url('/'),
             'cancel_url' => url('/purchase/' . $item->id),
         ]);
 
         return redirect($session->url);
-    }
-
-    public function success(Request $request)
-    {
-        $item = Item::findOrFail($request->item_id);
-        $user = auth()->user();
-
-        if ($item->is_sold) {
-            return redirect('/');
-        }
-
-        $deliveryAddress = $this->getDeliveryAddress($user);
-
-        Purchase::create([
-            'user_id' => auth()->id(),
-            'item_id' => $item->id,
-            'payment_method' => session('payment_method'),
-            'postal_code' => $deliveryAddress['postal_code'],
-            'address' => $deliveryAddress['address'],
-            'building' => $deliveryAddress['building'],
-        ]);
-
-        $item->update([
-            'is_sold' => true,
-        ]);
-
-        session()->forget([
-            'delivery_address',
-            'payment_method',
-        ]);
-
-        return redirect('/');
     }
 
     private function getDeliveryAddress($user)

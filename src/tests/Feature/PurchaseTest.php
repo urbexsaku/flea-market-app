@@ -31,9 +31,6 @@ class PurchaseTest extends TestCase
             'building' => 'テストビル101',
         ]);
 
-        // リダイレクト確認（購入完了確認）
-        $response->assertRedirect('/');
-
         // データベース登録確認（購入完了確認）
         $this->assertDatabaseHas('purchases', [
             'user_id' => $user->id,
